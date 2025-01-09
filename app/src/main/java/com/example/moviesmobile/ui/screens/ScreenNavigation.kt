@@ -37,6 +37,10 @@ fun ScreenNavigation(
                 movieId = movieId
             )
         }
+
+        composable("cartScreen") {
+            CartScreen(navController = navController)
+        }
     }
 }
 
