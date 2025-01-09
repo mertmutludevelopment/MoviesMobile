@@ -2,6 +2,7 @@ package com.example.moviesmobile.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
@@ -20,6 +21,10 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.moviesmobile.ui.theme.*
 import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.example.moviesmobile.ui.components.OrderAmountDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,6 +35,19 @@ fun DetailScreen(
 ) {
     val movie by viewModel.movie.collectAsState()
     val description by viewModel.description.collectAsState()
+    var showOrderDialog by remember { mutableStateOf(false) }
+    var selectedAmount by remember { mutableStateOf(1) }
+
+    OrderAmountDialog(
+        showDialog = showOrderDialog,
+        selectedAmount = selectedAmount,
+        onAmountChange = { selectedAmount = it },
+        onConfirm = {
+            viewModel.addToCart(selectedAmount)
+            showOrderDialog = false
+        },
+        onDismiss = { showOrderDialog = false }
+    )
 
     LaunchedEffect(movieId) {
         viewModel.loadMovie(movieId)
@@ -56,15 +74,18 @@ fun DetailScreen(
             )
         )
 
-        movie?.let { currentMovie ->
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp)
+                    .padding(bottom = 80.dp)
             ) {
                 AsyncImage(
-                    model = "http://kasimadalan.pe.hu/movies/images/${currentMovie.image}",
-                    contentDescription = currentMovie.name,
+                    model = "http://kasimadalan.pe.hu/movies/images/${movie?.image}",
+                    contentDescription = movie?.name,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(300.dp),
@@ -74,7 +95,7 @@ fun DetailScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = currentMovie.name,
+                    text = movie?.name ?: "",
                     color = OnSurface,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -87,12 +108,12 @@ fun DetailScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Yıl: ${currentMovie.year}",
+                        text = "Yıl: ${movie?.year}",
                         color = OnSurface.copy(alpha = 0.7f),
                         fontSize = 16.sp
                     )
                     
-                    currentMovie.rating?.let {
+                    movie?.rating?.let {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
                                 imageVector = Icons.Default.Star,
@@ -114,7 +135,7 @@ fun DetailScreen(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "Yönetmen: ${currentMovie.director ?: "Belirtilmemiş"}",
+                    text = "Yönetmen: ${movie?.director ?: "Belirtilmemiş"}",
                     color = OnSurface.copy(alpha = 0.7f),
                     fontSize = 16.sp
                 )
@@ -135,6 +156,26 @@ fun DetailScreen(
                     color = OnSurface.copy(alpha = 0.7f),
                     fontSize = 16.sp,
                     lineHeight = 24.sp
+                )
+            }
+
+            Button(
+                onClick = { showOrderDialog = true },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .height(56.dp)
+                    .align(Alignment.BottomCenter),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Primary,
+                    contentColor = OnPrimary
+                ),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Text(
+                    text = "Satın Al",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }

@@ -2,6 +2,7 @@ package com.example.moviesmobile.data.repo
 
 import com.example.moviesmobile.data.datasource.MovieDataSource
 import com.example.moviesmobile.data.entity.Movie
+import com.example.moviesmobile.data.entity.BaseResponse
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(var movieDataSource: MovieDataSource) {
@@ -16,5 +17,9 @@ class MovieRepository @Inject constructor(var movieDataSource: MovieDataSource) 
     
     suspend fun getMovieById(movieId: Int): Movie? {
         return movieDataSource.getMovieById(movieId)
+    }
+
+    suspend fun addToCart(movie: Movie, amount: Int): BaseResponse {
+        return movieDataSource.addToCart(movie, amount)
     }
 }

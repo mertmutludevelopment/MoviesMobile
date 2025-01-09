@@ -1,5 +1,6 @@
 package com.example.moviesmobile.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmobile.data.entity.Movie
@@ -28,7 +29,6 @@ class DetailScreenViewModel @Inject constructor(
                 val movie = movieRepository.getMovieById(movieId)
                 _movie.value = movie
                 
-                // Film yüklendiğinde açıklamayı güncelle
                 movie?.let {
                     _description.value = MovieDescriptions.getDescription(
                         movieName = it.name,
@@ -38,6 +38,19 @@ class DetailScreenViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 // Hata durumunda işlemler
+            }
+        }
+    }
+
+    fun addToCart(amount: Int) {
+        viewModelScope.launch {
+            try {
+                movie.value?.let { currentMovie ->
+                    val response = movieRepository.addToCart(currentMovie, amount)
+                    Log.d("CartOperation", "Sepete ekleme sonucu: ${response.message}")
+                }
+            } catch (e: Exception) {
+                Log.e("CartOperation", "Sepete eklerken hata: ${e.message}")
             }
         }
     }

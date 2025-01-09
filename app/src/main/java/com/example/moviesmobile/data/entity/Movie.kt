@@ -10,20 +10,19 @@ data class Movie(
     @SerializedName("image")
     val image: String,
     @SerializedName("price")
-    val price: Double = 0.0,
+    val price: Int = 0,
     @SerializedName("category")
-    val category: String? = null,
+    val category: String = "",
     @SerializedName("rating")
-    val rating: Double = 0.0,
+    val rating: Double?,
     @SerializedName("year")
-    val year: Int = 0,
+    val year: Int,
     @SerializedName("director")
-    val director: String? = null,
+    val director: String?,
     @SerializedName("description")
-    val description: String? = null,
-    @SerializedName("duration")
-    val duration: Int? = null,
-    @SerializedName("language")
-    val language: String? = null
-) {
-}
+    val description: String = "",
+    @SerializedName("orderAmount")
+    val orderAmount: Int = 0,
+    @SerializedName("userName")
+    val userName: String = ""
+)
