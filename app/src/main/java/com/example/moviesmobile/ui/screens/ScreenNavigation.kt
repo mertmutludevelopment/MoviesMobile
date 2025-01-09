@@ -1,14 +1,14 @@
 package com.example.moviesmobile.ui.screens
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import androidx.navigation.NavType
-import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
-import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.CartScreenViewModel
+import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
+import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
 
 @Composable
 fun ScreenNavigation(
