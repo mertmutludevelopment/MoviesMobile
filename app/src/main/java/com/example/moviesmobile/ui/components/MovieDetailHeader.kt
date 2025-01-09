@@ -50,7 +50,7 @@ fun MovieDetailHeader(
                 text = "★ ${movie.rating}",
                 style = MaterialTheme.typography.bodyLarge,
                 color = Primary,
-                )
+            )
         }
     }
 } 

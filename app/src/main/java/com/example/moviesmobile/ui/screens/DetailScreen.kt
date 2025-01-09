@@ -14,6 +14,8 @@ import com.example.moviesmobile.constants.AppConstants
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.unit.dp
+import com.example.moviesmobile.constants.Reviews
+import com.example.moviesmobile.constants.MovieCrewData
 
 @Composable
 fun DetailScreen(
@@ -38,7 +40,7 @@ fun DetailScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 80.dp)
+                .padding(bottom = 70.dp)
                 .verticalScroll(rememberScrollState())
         ) {
             Box {
@@ -56,7 +58,19 @@ fun DetailScreen(
                 
                 MovieDescription(
                     description = description,
-                    modifier = Modifier.padding(bottom = 100.dp)
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+                
+                MovieCrewData.crewInfo[currentMovie.name]?.let { crew ->
+                    MovieCrewSection(
+                        crew = crew,
+                        modifier = Modifier.padding(vertical = 16.dp)
+                    )
+                }
+                
+                MovieReviewSection(
+                    reviews = Reviews.movieReviews,
+                    modifier = Modifier.padding(bottom = 80.dp)
                 )
             }
         }
@@ -77,6 +91,7 @@ fun DetailScreen(
         OrderAmountDialog(
             showDialog = showOrderDialog,
             selectedAmount = selectedAmount,
+            price = movie?.price?.toDouble() ?: 0.0,
             onAmountChange = { selectedAmount = it },
             onConfirm = {
                 viewModel.addToCart(selectedAmount)
