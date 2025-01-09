@@ -41,4 +41,8 @@ class MovieDataSource(var moviesDao: MoviesDao) {
     suspend fun getMovieCart(userName: String) = withContext(Dispatchers.IO) {
         return@withContext moviesDao.getMovieCart(userName).movie_cart
     }
+
+    suspend fun deleteMovie(cartId: Int, userName: String) = withContext(Dispatchers.IO) {
+        return@withContext moviesDao.deleteMovie(cartId, userName)
+    }
 }

@@ -34,4 +34,11 @@ interface MoviesDao {
     suspend fun getMovieCart(
         @Field("userName") userName: String
     ): CartResponse
+
+    @FormUrlEncoded
+    @POST("movies/deleteMovie.php")
+    suspend fun deleteMovie(
+        @Field("cartId") cartId: Int,
+        @Field("userName") userName: String
+    ): BaseResponse
 }

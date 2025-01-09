@@ -3,6 +3,7 @@ package com.example.moviesmobile.data.repo
 import com.example.moviesmobile.data.datasource.MovieDataSource
 import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.data.entity.BaseResponse
+import com.example.moviesmobile.data.entity.CartMovie
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(var movieDataSource: MovieDataSource) {
@@ -23,7 +24,11 @@ class MovieRepository @Inject constructor(var movieDataSource: MovieDataSource) 
         return movieDataSource.addToCart(movie, amount)
     }
 
-    suspend fun getMovieCart(userName: String): List<Movie> {
+    suspend fun getMovieCart(userName: String): List<CartMovie> {
         return movieDataSource.getMovieCart(userName)
+    }
+
+    suspend fun deleteMovie(cartId: Int, userName: String): BaseResponse {
+        return movieDataSource.deleteMovie(cartId, userName)
     }
 }
