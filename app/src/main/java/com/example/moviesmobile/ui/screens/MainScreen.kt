@@ -3,7 +3,6 @@ package com.example.moviesmobile.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -75,34 +74,35 @@ fun MainScreen(
             contentPadding = PaddingValues(bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            featuredMovie?.let {
+            if (searchQuery.isEmpty()) {
+                featuredMovie?.let {
+                    item {
+                        FeaturedMovie(
+                            movie = it,
+                            onMovieClick = { 
+                                navController.navigate("detailScreen/${it.id}")
+                            },
+                            scrollOffset = firstVisibleItemOffset.value
+                        )
+                    }
+                }
+
                 item {
-                    FeaturedMovie(
-                        movie = it,
-                        onMovieClick = { 
-                            navController.navigate("detailScreen/${it.id}")
-                        },
-                        scrollOffset = firstVisibleItemOffset.value
+                    TopRatedMovies(
+                        movies = topRatedMovies,
+                        onMovieClick = { movieId ->
+                            navController.navigate("detailScreen/$movieId")
+                        }
                     )
                 }
             }
 
             item {
-                TopRatedMovies(
-                    movies = topRatedMovies,
+                DiscoverMovies(
+                    movies = filteredMovies,
                     onMovieClick = { movieId ->
                         navController.navigate("detailScreen/$movieId")
                     }
-                )
-            }
-
-            items(filteredMovies) { movie ->
-                MovieCard(
-                    movie = movie,
-                    onMovieClick = { 
-                        navController.navigate("detailScreen/${movie.id}")
-                    },
-                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
         }
