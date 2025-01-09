@@ -22,4 +22,8 @@ class MovieRepository @Inject constructor(var movieDataSource: MovieDataSource) 
     suspend fun addToCart(movie: Movie, amount: Int): BaseResponse {
         return movieDataSource.addToCart(movie, amount)
     }
+
+    suspend fun getMovieCart(userName: String): List<Movie> {
+        return movieDataSource.getMovieCart(userName)
+    }
 }

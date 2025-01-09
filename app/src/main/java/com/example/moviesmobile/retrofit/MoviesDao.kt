@@ -1,19 +1,18 @@
 package com.example.moviesmobile.retrofit
 
-import com.example.moviesmobile.data.entity.MovieResponse
 import com.example.moviesmobile.data.entity.BaseResponse
-import retrofit2.http.GET
-import retrofit2.http.Url
-import retrofit2.http.POST
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Field
+import com.example.moviesmobile.data.entity.CartResponse
+import com.example.moviesmobile.data.entity.MovieResponse
+import retrofit2.http.*
 
 interface MoviesDao {
     @GET("movies/getAllMovies.php")
-    suspend fun getAllMovies() : MovieResponse
+    suspend fun getAllMovies(): MovieResponse
 
-    @GET
-    suspend fun getMovieImage(@Url imageUrl: String): String
+    @GET("movies/images/{imageName}")
+    suspend fun getMovieImage(
+        @Path("imageName") imageName: String
+    ): String
 
     @FormUrlEncoded
     @POST("movies/insertMovie.php")
@@ -29,4 +28,10 @@ interface MoviesDao {
         @Field("orderAmount") orderAmount: Int,
         @Field("userName") userName: String
     ): BaseResponse
+
+    @FormUrlEncoded
+    @POST("movies/getMovieCart.php")
+    suspend fun getMovieCart(
+        @Field("userName") userName: String
+    ): CartResponse
 }
