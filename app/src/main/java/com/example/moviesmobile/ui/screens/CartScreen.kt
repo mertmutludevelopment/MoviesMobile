@@ -35,6 +35,8 @@ fun CartScreen(
             navController = navController
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         if (cartItems.isEmpty()) {
             EmptyCart()
         } else {
