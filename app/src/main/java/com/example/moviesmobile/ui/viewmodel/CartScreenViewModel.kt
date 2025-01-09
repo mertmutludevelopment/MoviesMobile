@@ -7,6 +7,7 @@ import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.data.entity.CartMovie
 import com.example.moviesmobile.data.repo.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,6 +20,12 @@ class CartScreenViewModel @Inject constructor(
 
     private val _cartItems = MutableStateFlow<List<CartMovie>>(emptyList())
     val cartItems: StateFlow<List<CartMovie>> = _cartItems
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
+    private val _showSuccess = MutableStateFlow(false)
+    val showSuccess: StateFlow<Boolean> = _showSuccess
 
     init {
         loadCartItems()
@@ -47,6 +54,31 @@ class CartScreenViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 Log.e("CartOperation", "Film silinirken hata: ${e.message}")
+            }
+        }
+    }
+
+    fun clearAllCartItems() {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                val currentItems = _cartItems.value
+                
+                currentItems.forEach { cartMovie ->
+                    movieRepository.deleteMovie(cartMovie.cartId, AppConstants.DEFAULT_USERNAME)
+                }
+                
+                loadCartItems()
+                _isLoading.value = false  // Önce loading'i kapat
+                _showSuccess.value = true  // Sonra success'i göster
+                
+                // 2 saniye sonra success mesajını kaldır
+                delay(2000)
+                _showSuccess.value = false
+                
+            } catch (e: Exception) {
+                Log.e("CartOperation", "Sepet temizlenirken hata: ${e.message}")
+                _isLoading.value = false
             }
         }
     }
