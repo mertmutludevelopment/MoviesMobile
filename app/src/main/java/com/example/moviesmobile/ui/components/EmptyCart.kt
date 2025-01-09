@@ -22,7 +22,7 @@ fun EmptyCart() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Sepetiniz Boş",
+            text = "Your cart is empty",
             color = OnSurface,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,

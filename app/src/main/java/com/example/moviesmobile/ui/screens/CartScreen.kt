@@ -31,7 +31,7 @@ fun CartScreen(
             .background(Background)
     ) {
         CartTopBar(
-            title = "Sepetim",
+            title = "Shopping Cart",
             navController = navController
         )
 

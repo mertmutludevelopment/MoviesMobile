@@ -26,7 +26,7 @@ fun MainSearchBar(
             .padding(horizontal = 16.dp, vertical = 8.dp),
         placeholder = {
             Text(
-                text = "Film Ara...",
+                text = "Search movies...",
                 color = OnSurface.copy(alpha = 0.6f)
             )
         },
