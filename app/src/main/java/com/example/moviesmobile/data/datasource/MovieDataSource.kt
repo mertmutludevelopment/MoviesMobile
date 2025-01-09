@@ -39,7 +39,11 @@ class MovieDataSource(var moviesDao: MoviesDao) {
     }
 
     suspend fun getMovieCart(userName: String) = withContext(Dispatchers.IO) {
-        return@withContext moviesDao.getMovieCart(userName).movie_cart
+        return@withContext try {
+            moviesDao.getMovieCart(userName).movie_cart
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
     suspend fun deleteMovie(cartId: Int, userName: String) = withContext(Dispatchers.IO) {
