@@ -21,6 +21,9 @@ class MainScreenViewModel @Inject constructor(
     private val _movies = MutableStateFlow<List<Movie>>(emptyList())
     val movies: StateFlow<List<Movie>> = _movies
 
+    private val _movieImages = MutableStateFlow<Map<String, String>>(emptyMap())
+    val movieImages: StateFlow<Map<String, String>> = _movieImages
+
     init {
         loadMovies()
     }
@@ -30,9 +33,23 @@ class MainScreenViewModel @Inject constructor(
             try {
                 val movieList = movieRepository.getAllMovies()
                 _movies.value = movieList
+                loadMovieImages(movieList)
             } catch (e: Exception) {
                 // Hata durumunda gerekli işlemler yapılabilir
             }
         }
+    }
+
+    private suspend fun loadMovieImages(movies: List<Movie>) {
+        val imageMap = mutableMapOf<String, String>()
+        movies.forEach { movie ->
+            try {
+                val imageUrl = movieRepository.getMovieImage(movie.image)
+                imageMap[movie.image] = imageUrl
+            } catch (e: Exception) {
+                // Hata durumunda işlemler
+            }
+        }
+        _movieImages.value = imageMap
     }
 }
