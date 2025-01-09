@@ -77,7 +77,7 @@ fun CartScreen(
                     .fillMaxSize()
                     .padding(16.dp)
             ) {
-                items(cartItems) { movie ->
+                items(cartItems.sortedBy { it.name }) { movie ->
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()

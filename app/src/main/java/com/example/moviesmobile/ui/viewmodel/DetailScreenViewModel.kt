@@ -46,8 +46,21 @@ class DetailScreenViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 movie.value?.let { currentMovie ->
-                    val response = movieRepository.addToCart(currentMovie, amount)
-                    Log.d("CartOperation", "Sepete ekleme sonucu: ${response.message}")
+                    // Önce sepeti kontrol et
+                    val cartItems = movieRepository.getMovieCart("mert_mutlu")
+                    val existingItem = cartItems.find { it.name == currentMovie.name }
+                    
+                    if (existingItem != null) {
+                        movieRepository.deleteMovie(existingItem.cartId, "mert_mutlu")
+                        // Yeni toplam miktarla ekle
+                        val totalAmount = existingItem.orderAmount + amount
+                        val response = movieRepository.addToCart(currentMovie, totalAmount)
+                        Log.d("CartOperation", "Ürün güncellendi: ${response.message}")
+                    } else {
+                        // Ürün sepette yoksa direkt ekle
+                        val response = movieRepository.addToCart(currentMovie, amount)
+                        Log.d("CartOperation", "Yeni ürün eklendi: ${response.message}")
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("CartOperation", "Sepete eklerken hata: ${e.message}")
