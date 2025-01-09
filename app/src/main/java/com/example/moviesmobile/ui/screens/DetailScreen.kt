@@ -29,6 +29,7 @@ fun DetailScreen(
     movieId: Int
 ) {
     val movie by viewModel.movie.collectAsState()
+    val description by viewModel.description.collectAsState()
 
     LaunchedEffect(movieId) {
         viewModel.loadMovie(movieId)
@@ -81,11 +82,34 @@ fun DetailScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(
-                    text = "Yıl: ${currentMovie.year}",
-                    color = OnSurface.copy(alpha = 0.7f),
-                    fontSize = 16.sp
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Yıl: ${currentMovie.year}",
+                        color = OnSurface.copy(alpha = 0.7f),
+                        fontSize = 16.sp
+                    )
+                    
+                    currentMovie.rating?.let {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Star,
+                                contentDescription = null,
+                                tint = Primary,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = it.toString(),
+                                color = Primary,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(4.dp))
 
@@ -95,25 +119,23 @@ fun DetailScreen(
                     fontSize = 16.sp
                 )
 
-                currentMovie.rating?.let {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = "Rating",
-                            tint = Primary
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = it.toString(),
-                            color = Primary,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                }
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                Text(
+                    text = "Film Açıklaması",
+                    color = OnSurface,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                
+                Spacer(modifier = Modifier.height(8.dp))
+                
+                Text(
+                    text = description,
+                    color = OnSurface.copy(alpha = 0.7f),
+                    fontSize = 16.sp,
+                    lineHeight = 24.sp
+                )
             }
         }
     }
