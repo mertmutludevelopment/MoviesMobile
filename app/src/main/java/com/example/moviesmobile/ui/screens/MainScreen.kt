@@ -47,6 +47,7 @@ fun MainScreen(
     }
 
     val featuredMovie = filteredMovies.maxByOrNull { it.year }
+    val topRatedMovies = filteredMovies.sortedByDescending { it.rating }.take(8)
 
     Column(
         modifier = Modifier
@@ -84,6 +85,15 @@ fun MainScreen(
                         scrollOffset = firstVisibleItemOffset.value
                     )
                 }
+            }
+
+            item {
+                TopRatedMovies(
+                    movies = topRatedMovies,
+                    onMovieClick = { movieId ->
+                        navController.navigate("detailScreen/$movieId")
+                    }
+                )
             }
 
             items(filteredMovies) { movie ->

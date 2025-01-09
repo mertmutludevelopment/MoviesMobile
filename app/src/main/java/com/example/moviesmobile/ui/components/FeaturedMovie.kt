@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.data.entity.Movie
+import com.example.moviesmobile.ui.theme.OnPrimary
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
 
@@ -85,7 +87,7 @@ fun FeaturedMovie(
                         Text(
                             text = "Featured",
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            color = Surface,
+                            color = OnPrimary,
                             fontSize = 12.sp
                         )
                     }
@@ -95,7 +97,7 @@ fun FeaturedMovie(
                             text = movie.name,
                             fontSize = 32.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Surface
+                            color = OnPrimary
                         )
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -114,7 +116,7 @@ fun FeaturedMovie(
                             )
                             Text(
                                 text = movie.year.toString(),
-                                color = Surface,
+                                color = OnPrimary,
                                 fontSize = 18.sp
                             )
                         }
