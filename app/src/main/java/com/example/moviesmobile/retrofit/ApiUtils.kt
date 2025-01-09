@@ -1,12 +1,12 @@
 package com.example.moviesmobile.retrofit
 
+import com.example.moviesmobile.constants.AppConstants
+
 class ApiUtils {
 
     companion object{
-        val BASE_URL = "http://kasimadalan.pe.hu/"
-
         fun getFilmlerDao() : MoviesDao {
-            return RetrofitClient.getClient(BASE_URL).create(MoviesDao::class.java)
+            return RetrofitClient.getClient(AppConstants.BASE_URL).create(MoviesDao::class.java)
         }
     }
 }

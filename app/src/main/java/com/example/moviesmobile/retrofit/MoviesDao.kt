@@ -1,12 +1,13 @@
 package com.example.moviesmobile.retrofit
 
+import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.data.entity.BaseResponse
 import com.example.moviesmobile.data.entity.CartResponse
 import com.example.moviesmobile.data.entity.MovieResponse
 import retrofit2.http.*
 
 interface MoviesDao {
-    @GET("movies/getAllMovies.php")
+    @GET(AppConstants.GET_ALL_MOVIES)
     suspend fun getAllMovies(): MovieResponse
 
     @GET("movies/images/{imageName}")
@@ -15,7 +16,7 @@ interface MoviesDao {
     ): String
 
     @FormUrlEncoded
-    @POST("movies/insertMovie.php")
+    @POST(AppConstants.INSERT_MOVIE)
     suspend fun addToCart(
         @Field("name") name: String,
         @Field("image") image: String,
@@ -30,13 +31,13 @@ interface MoviesDao {
     ): BaseResponse
 
     @FormUrlEncoded
-    @POST("movies/getMovieCart.php")
+    @POST(AppConstants.GET_MOVIE_CART)
     suspend fun getMovieCart(
         @Field("userName") userName: String
     ): CartResponse
 
     @FormUrlEncoded
-    @POST("movies/deleteMovie.php")
+    @POST(AppConstants.DELETE_MOVIE)
     suspend fun deleteMovie(
         @Field("cartId") cartId: Int,
         @Field("userName") userName: String

@@ -1,5 +1,6 @@
 package com.example.moviesmobile.data.datasource
 
+import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.data.entity.BaseResponse
 import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.retrofit.MoviesDao
@@ -13,7 +14,7 @@ class MovieDataSource(var moviesDao: MoviesDao) {
     }
 
     suspend fun getMovieImage(imageName: String): String = withContext(Dispatchers.IO) {
-        val imageUrl = "movies/images/$imageName"
+        val imageUrl = "${AppConstants.IMAGE_URL}$imageName"
         return@withContext moviesDao.getMovieImage(imageUrl)
     }
     
@@ -34,7 +35,7 @@ class MovieDataSource(var moviesDao: MoviesDao) {
             director = movieDetails.director ?: "",
             description = movieDetails.description,
             orderAmount = amount,
-            userName = "mert_mutlu"
+            userName = AppConstants.DEFAULT_USERNAME
         )
     }
 

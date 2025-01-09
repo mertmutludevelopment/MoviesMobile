@@ -25,6 +25,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.example.moviesmobile.ui.components.OrderAmountDialog
+import com.example.moviesmobile.constants.AppConstants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,7 +85,7 @@ fun DetailScreen(
                     .padding(bottom = 80.dp)
             ) {
                 AsyncImage(
-                    model = "http://kasimadalan.pe.hu/movies/images/${movie?.image}",
+                    model = "${AppConstants.IMAGE_URL}${movie?.image}",
                     contentDescription = movie?.name,
                     modifier = Modifier
                         .fillMaxWidth()

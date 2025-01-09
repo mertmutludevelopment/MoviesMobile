@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.moviesmobile.ui.theme.*
 import com.example.moviesmobile.ui.viewmodel.CartScreenViewModel
+import com.example.moviesmobile.constants.AppConstants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -94,7 +95,7 @@ fun CartScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             AsyncImage(
-                                model = "http://kasimadalan.pe.hu/movies/images/${movie.image}",
+                                model = "${AppConstants.IMAGE_URL}${movie.image}",
                                 contentDescription = movie.name,
                                 modifier = Modifier
                                     .size(80.dp),

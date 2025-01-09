@@ -3,6 +3,7 @@ package com.example.moviesmobile.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.data.repo.MovieRepository
 import com.example.moviesmobile.util.MovieDescriptions
@@ -47,11 +48,11 @@ class DetailScreenViewModel @Inject constructor(
             try {
                 movie.value?.let { currentMovie ->
                     // Önce sepeti kontrol et
-                    val cartItems = movieRepository.getMovieCart("mert_mutlu")
+                    val cartItems = movieRepository.getMovieCart(AppConstants.DEFAULT_USERNAME)
                     val existingItem = cartItems.find { it.name == currentMovie.name }
                     
                     if (existingItem != null) {
-                        movieRepository.deleteMovie(existingItem.cartId, "mert_mutlu")
+                        movieRepository.deleteMovie(existingItem.cartId, AppConstants.DEFAULT_USERNAME)
                         // Yeni toplam miktarla ekle
                         val totalAmount = existingItem.orderAmount + amount
                         val response = movieRepository.addToCart(currentMovie, totalAmount)
