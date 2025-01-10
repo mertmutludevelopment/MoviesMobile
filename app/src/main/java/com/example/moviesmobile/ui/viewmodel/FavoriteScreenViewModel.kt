@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmobile.data.entity.FavoriteMovie
 import com.example.moviesmobile.data.entity.Movie
-import com.example.moviesmobile.data.local.dao.FavoriteMovieDao
+import com.example.moviesmobile.room.FavoriteMovieDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

@@ -2,8 +2,8 @@ package com.example.moviesmobile.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.moviesmobile.data.local.MovieDatabase
-import com.example.moviesmobile.data.local.dao.FavoriteMovieDao
+import com.example.moviesmobile.room.MovieDatabase
+import com.example.moviesmobile.room.FavoriteMovieDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

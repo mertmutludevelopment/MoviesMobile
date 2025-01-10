@@ -1,4 +1,4 @@
-package com.example.moviesmobile.data.local.dao
+package com.example.moviesmobile.room
 
 import androidx.room.*
 import com.example.moviesmobile.data.entity.FavoriteMovie
