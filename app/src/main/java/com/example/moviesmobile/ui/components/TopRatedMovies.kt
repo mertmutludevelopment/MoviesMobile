@@ -96,7 +96,7 @@ fun TopRatedMovies(
                             }
                         }
 
-                        // Kalp ikonu kısmını düzenliyoruz
+                        // Kalp ikonu
                         AnimatedHeartButton(
                             modifier = Modifier
                                 .align(Alignment.TopEnd)

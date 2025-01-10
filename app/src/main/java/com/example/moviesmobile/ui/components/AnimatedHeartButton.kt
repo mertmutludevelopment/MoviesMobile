@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
@@ -19,6 +20,7 @@ fun AnimatedHeartButton(
     tint: Color,
     onHeartClick: () -> Unit
 ) {
+    var isFavorite by remember { mutableStateOf(false) }
     var isPressed by remember { mutableStateOf(false) }
     
     val scale by animateFloatAsState(
@@ -39,13 +41,14 @@ fun AnimatedHeartButton(
     IconButton(
         onClick = { 
             isPressed = true
+            isFavorite = !isFavorite
             onHeartClick()
         },
         modifier = modifier
     ) {
         Icon(
-            imageVector = Icons.Default.Favorite,
-            contentDescription = "Add to favorites",
+            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+            contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
             tint = tint,
             modifier = Modifier.scale(scale)
         )
