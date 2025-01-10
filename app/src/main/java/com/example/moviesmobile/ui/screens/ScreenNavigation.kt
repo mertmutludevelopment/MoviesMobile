@@ -13,6 +13,8 @@ import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
+// Main navigation component handling screen transitions and routing
+// Manages navigation between Splash, Main, Detail, Cart and Favorite screens
 @Composable
 fun ScreenNavigation(
     mainScreenViewModel: MainScreenViewModel,
@@ -23,10 +25,12 @@ fun ScreenNavigation(
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "splashScreen") {
+        // Splash screen - Initial app loading screen
         composable("splashScreen") {
             SplashScreen(navController = navController)
         }
 
+        // Main screen - Home screen with movie listings
         composable("mainScreen") {
             MainScreen(
                 navController = navController,
@@ -35,6 +39,7 @@ fun ScreenNavigation(
             )
         }
 
+        // Detail screen - Shows movie details with dynamic movieId parameter
         composable(
             route = "detailScreen/{movieId}",
             arguments = listOf(
@@ -50,6 +55,7 @@ fun ScreenNavigation(
             )
         }
 
+        // Cart screen - Shopping cart with movie tickets
         composable("cartScreen") {
             CartScreen(
                 navController = navController,
@@ -57,6 +63,7 @@ fun ScreenNavigation(
             )
         }
 
+        // Favorite screen - User's favorite movies list
         composable("favoriteScreen") {
             FavoriteScreen(
                 navController = navController,

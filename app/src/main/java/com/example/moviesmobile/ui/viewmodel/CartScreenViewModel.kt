@@ -13,11 +13,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+// ViewModel for managing shopping cart operations and state
+// Handles cart items loading, deletion, and purchase completion
 @HiltViewModel
 class CartScreenViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
+    // State flows for cart items and UI states
     private val _cartItems = MutableStateFlow<List<CartMovie>>(emptyList())
     val cartItems: StateFlow<List<CartMovie>> = _cartItems
 
@@ -31,6 +34,7 @@ class CartScreenViewModel @Inject constructor(
         loadCartItems()
     }
 
+    // Fetch cart items from repository
     fun loadCartItems() {
         viewModelScope.launch {
             try {
@@ -42,13 +46,14 @@ class CartScreenViewModel @Inject constructor(
         }
     }
 
+    // Remove single item from cart
     fun deleteMovie(cartId: Int) {
         viewModelScope.launch {
             try {
                 val response = movieRepository.deleteMovie(cartId, AppConstants.DEFAULT_USERNAME)
                 if (response.success == 1) {
                     Log.d("CartOperation", "Film sepetten silindi: cartId=$cartId")
-                    loadCartItems() // Sepeti yeniden yükle
+                    loadCartItems() 
                 } else {
                     Log.e("CartOperation", "Film silinemedi: ${response.message}")
                 }
@@ -58,6 +63,7 @@ class CartScreenViewModel @Inject constructor(
         }
     }
 
+    // Clear all items from cart and show success message
     fun clearAllCartItems() {
         viewModelScope.launch {
             try {
@@ -69,10 +75,9 @@ class CartScreenViewModel @Inject constructor(
                 }
                 
                 loadCartItems()
-                _isLoading.value = false  // Önce loading'i kapat
-                _showSuccess.value = true  // Sonra success'i göster
+                _isLoading.value = false
+                _showSuccess.value = true
                 
-                // 2 saniye sonra success mesajını kaldır
                 delay(2000)
                 _showSuccess.value = false
                 

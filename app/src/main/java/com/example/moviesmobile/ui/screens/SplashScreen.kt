@@ -13,10 +13,13 @@ import com.example.moviesmobile.ui.components.SplashAnimation
 import com.example.moviesmobile.ui.components.SplashTexts
 import kotlinx.coroutines.delay
 
+// Initial loading screen with animated logo and text
+// Automatically navigates to main screen after animation completes
 @Composable
 fun SplashScreen(navController: NavController) {
     var startAnimation by remember { mutableStateOf(false) }
 
+    // Fade-in animation for text elements
     val alphaAnim = animateFloatAsState(
         targetValue = if (startAnimation) 1f else 0f,
         animationSpec = tween(
@@ -24,6 +27,7 @@ fun SplashScreen(navController: NavController) {
         )
     )
 
+    // Start animation and navigate to main screen after delay
     LaunchedEffect(key1 = true) {
         startAnimation = true
         delay(2000)

@@ -13,17 +13,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+// ViewModel for managing movie details and cart operations
+// Handles movie loading, description generation and cart additions
 @HiltViewModel
 class DetailScreenViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
+    // State flows for movie details and description
     private val _movie = MutableStateFlow<Movie?>(null)
     val movie: StateFlow<Movie?> = _movie
 
     private val _description = MutableStateFlow<String>("")
     val description: StateFlow<String> = _description
 
+    // Load movie details and generate description
     fun loadMovie(movieId: Int) {
         viewModelScope.launch {
             try {
@@ -38,27 +42,25 @@ class DetailScreenViewModel @Inject constructor(
                     )
                 }
             } catch (e: Exception) {
-                // Hata durumunda işlemler
+                Log.e("DetailScreenViewModel", "Error loading movie: ${e.message}")
             }
         }
     }
 
+    // Add or update movie in cart with specified amount
     fun addToCart(amount: Int) {
         viewModelScope.launch {
             try {
                 movie.value?.let { currentMovie ->
-                    // Önce sepeti kontrol et
                     val cartItems = movieRepository.getMovieCart(AppConstants.DEFAULT_USERNAME)
                     val existingItem = cartItems.find { it.name == currentMovie.name }
                     
                     if (existingItem != null) {
                         movieRepository.deleteMovie(existingItem.cartId, AppConstants.DEFAULT_USERNAME)
-                        // Yeni toplam miktarla ekle
                         val totalAmount = existingItem.orderAmount + amount
                         val response = movieRepository.addToCart(currentMovie, totalAmount)
                         Log.d("CartOperation", "Ürün güncellendi: ${response.message}")
                     } else {
-                        // Ürün sepette yoksa direkt ekle
                         val response = movieRepository.addToCart(currentMovie, amount)
                         Log.d("CartOperation", "Yeni ürün eklendi: ${response.message}")
                     }
