@@ -1,5 +1,6 @@
 package com.example.moviesmobile.ui.components
 
+import androidx.compose.animation.core.Spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +23,16 @@ import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.draw.scale
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun FeaturedMovie(
@@ -125,18 +136,13 @@ fun FeaturedMovie(
                     }
                 }
 
-                IconButton(
-                    onClick = { /* TODO: Favoriye ekleme işlemi */ },
+                AnimatedHeartButton(
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .padding(8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Favorite,
-                        contentDescription = "Add to favorites",
-                        tint = Primary
-                    )
-                }
+                        .padding(8.dp),
+                    tint = Primary,
+                    onHeartClick = { /* TODO: Favoriye ekleme işlemi */ }
+                )
             }
         }
     }

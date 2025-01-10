@@ -96,20 +96,15 @@ fun TopRatedMovies(
                             }
                         }
 
-                        // Sadece kalp ikonu eklendi
-                        IconButton(
-                            onClick = { /* TODO: Favoriye ekleme işlemi */ },
+                        // Kalp ikonu kısmını düzenliyoruz
+                        AnimatedHeartButton(
                             modifier = Modifier
                                 .align(Alignment.TopEnd)
-                                .padding(4.dp)
-                                .size(24.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Favorite,
-                                contentDescription = "Add to favorites",
-                                tint = Primary
-                            )
-                        }
+                                .padding(8.dp)
+                                .size(28.dp),
+                            tint = Primary,
+                            onHeartClick = { /* TODO: Favoriye ekleme işlemi */ }
+                        )
                     }
                 }
             }

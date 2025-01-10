@@ -166,16 +166,11 @@ fun DiscoverMovies(
                                 .padding(8.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Kalp ikonu
-                            IconButton(
-                                onClick = { /* TODO: Favoriye ekleme işlemi */ }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Favorite,
-                                    contentDescription = "Add to favorites",
-                                    tint = Primary
-                                )
-                            }
+                            // Kalp ikonunu değiştiriyoruz
+                            AnimatedHeartButton(
+                                tint = Primary,
+                                onHeartClick = { /* TODO: Favoriye ekleme işlemi */ }
+                            )
 
                             // Genişletme/Daraltma ikonu
                             IconButton(
