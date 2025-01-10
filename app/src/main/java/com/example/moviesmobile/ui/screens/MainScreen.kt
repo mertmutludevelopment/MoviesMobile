@@ -18,6 +18,10 @@ fun MainScreen(
     navController: NavController,
     mainScreenViewModel: MainScreenViewModel
 ) {
+    LaunchedEffect(Unit) {
+        navController.enableOnBackPressed(true)
+    }
+    
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("All") }
     val movies by mainScreenViewModel.movies.collectAsState()
@@ -80,7 +84,9 @@ fun MainScreen(
                         FeaturedMovie(
                             movie = it,
                             onMovieClick = { 
-                                navController.navigate("detailScreen/${it.id}")
+                                navController.navigate("detailScreen/${it.id}") {
+                                    popUpTo("mainScreen") { saveState = true }
+                                }
                             },
                             scrollOffset = firstVisibleItemOffset.value
                         )
@@ -91,7 +97,9 @@ fun MainScreen(
                     TopRatedMovies(
                         movies = topRatedMovies,
                         onMovieClick = { movieId ->
-                            navController.navigate("detailScreen/$movieId")
+                            navController.navigate("detailScreen/$movieId") {
+                                popUpTo("mainScreen") { saveState = true }
+                            }
                         }
                     )
                 }
@@ -101,7 +109,9 @@ fun MainScreen(
                 DiscoverMovies(
                     movies = filteredMovies,
                     onMovieClick = { movieId ->
-                        navController.navigate("detailScreen/$movieId")
+                        navController.navigate("detailScreen/$movieId") {
+                            popUpTo("mainScreen") { saveState = true }
+                        }
                     }
                 )
             }
