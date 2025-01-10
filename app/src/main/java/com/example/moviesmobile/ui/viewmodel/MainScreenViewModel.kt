@@ -1,5 +1,6 @@
 package com.example.moviesmobile.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmobile.data.entity.Movie
@@ -10,11 +11,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+// ViewModel for managing main screen movie listings
+// Handles movie data loading and image URL management
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
+    // State flows for movie list and their corresponding image URLs
     private val _movies = MutableStateFlow<List<Movie>>(emptyList())
     val movies: StateFlow<List<Movie>> = _movies
 
@@ -25,6 +29,7 @@ class MainScreenViewModel @Inject constructor(
         loadMovies()
     }
 
+    // Fetch movie list from repository
     private fun loadMovies() {
         viewModelScope.launch {
             try {
@@ -32,11 +37,12 @@ class MainScreenViewModel @Inject constructor(
                 _movies.value = movieList
                 loadMovieImages(movieList)
             } catch (e: Exception) {
-                // Hata durumunda gerekli işlemler yapılabilir
+                Log.e("MainScreenViewModel", "Error loading movies: ${e.message}")
             }
         }
     }
 
+    // Load image URLs for each movie
     private suspend fun loadMovieImages(movies: List<Movie>) {
         val imageMap = mutableMapOf<String, String>()
         movies.forEach { movie ->
@@ -44,7 +50,7 @@ class MainScreenViewModel @Inject constructor(
                 val imageUrl = movieRepository.getMovieImage(movie.image)
                 imageMap[movie.image] = imageUrl
             } catch (e: Exception) {
-                // Hata durumunda işlemler
+                Log.e("MainScreenViewModel", "Error loading image for ${movie.name}: ${e.message}")
             }
         }
         _movieImages.value = imageMap
