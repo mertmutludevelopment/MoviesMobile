@@ -8,6 +8,7 @@ data class Review(
     val authorAvatar: String
 )
 
+// Contains sample review data for movies
 object Reviews {
     val movieReviews = listOf(
         Review(

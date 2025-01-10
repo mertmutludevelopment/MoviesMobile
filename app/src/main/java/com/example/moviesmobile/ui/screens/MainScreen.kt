@@ -14,6 +14,7 @@ import com.example.moviesmobile.ui.theme.Background
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
+// Main screen that handles movie listing, searching and filtering
 @Composable
 fun MainScreen(
     navController: NavController,
@@ -25,12 +26,14 @@ fun MainScreen(
     val movies by mainScreenViewModel.movies.collectAsState()
     val listState = rememberLazyListState()
     
+    // Track scroll position for animated effects
     val firstVisibleItemOffset = remember {
         derivedStateOf {
             listState.firstVisibleItemScrollOffset.toFloat()
         }
     }
 
+    // Filter movies based on search query and selected category 
     val filteredMovies = movies.filter { movie ->
         val matchesSearch = if (searchQuery.isEmpty()) {
             true
@@ -47,6 +50,7 @@ fun MainScreen(
         matchesSearch && matchesCategory
     }
 
+    // Get featured and top rated movies for special sections
     val featuredMovie = filteredMovies.maxByOrNull { it.year }
     val topRatedMovies = filteredMovies.sortedByDescending { it.rating }.take(8)
 

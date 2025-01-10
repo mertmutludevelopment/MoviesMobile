@@ -2,6 +2,7 @@ package com.example.moviesmobile.data.entity
 
 import com.google.gson.annotations.SerializedName
 
+// Represents a movie entity with all its details from the API
 data class Movie(
     @SerializedName("id")
     val id: Int,

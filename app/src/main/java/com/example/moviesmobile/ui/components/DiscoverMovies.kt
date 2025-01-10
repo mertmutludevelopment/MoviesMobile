@@ -30,36 +30,8 @@ import com.example.moviesmobile.ui.theme.*
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import kotlinx.coroutines.launch
 
-@Composable
-fun CategoryChip(
-    icon: ImageVector,
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        colors = CardDefaults.cardColors(containerColor = Surface),
-        modifier = modifier
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = Primary,
-                modifier = Modifier.size(16.dp)
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = text,
-                color = OnSurface,
-                fontSize = 14.sp
-            )
-        }
-    }
-}
-
+// Main component for displaying movie list with expandable cards
+// Each card shows movie poster, basic info and expands to show more details
 @Composable
 fun DiscoverMovies(
     movies: List<Movie>,
@@ -69,7 +41,7 @@ fun DiscoverMovies(
     var favoriteStates by remember { mutableStateOf(mapOf<Int, Boolean>()) }
     val coroutineScope = rememberCoroutineScope()
 
-    // İlk yüklemede tüm filmlerin favori durumunu kontrol et
+    
     LaunchedEffect(movies) {
         val states = mutableMapOf<Int, Boolean>()
         movies.forEach { movie ->

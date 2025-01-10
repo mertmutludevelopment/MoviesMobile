@@ -11,10 +11,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+// Module that provides database related dependencies
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
     
+    // Provides Room database instance
     @Provides
     @Singleton
     fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase {
@@ -25,6 +27,7 @@ object DatabaseModule {
         ).build()
     }
 
+    // Provides DAO for favorite movies operations
     @Provides
     @Singleton
     fun provideFavoriteMovieDao(database: MovieDatabase): FavoriteMovieDao {

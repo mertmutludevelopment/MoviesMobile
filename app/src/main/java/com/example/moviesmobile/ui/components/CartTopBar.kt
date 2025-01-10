@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import com.example.moviesmobile.ui.theme.OnSurface
 import com.example.moviesmobile.ui.theme.Surface
 
+// Top app bar component for shopping cart screen with back navigation
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartTopBar(

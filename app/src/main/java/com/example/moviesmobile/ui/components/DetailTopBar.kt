@@ -19,6 +19,7 @@ import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import kotlinx.coroutines.launch
 
+// Top bar for movie detail screen with back navigation and favorite toggle
 @Composable
 fun DetailTopBar(
     navController: NavController,

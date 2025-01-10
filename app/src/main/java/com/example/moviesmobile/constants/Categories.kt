@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
 
+// Data class for movie categories used in filtering system
 data class CategoryItem(
     val name: String,
     val icon: ImageVector

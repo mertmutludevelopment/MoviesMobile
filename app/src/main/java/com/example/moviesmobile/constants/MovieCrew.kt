@@ -1,5 +1,6 @@
 package com.example.moviesmobile.constants
 
+// Data class to hold director and cast information for movies
 data class MovieCrew(
     val director: String,
     val cast: List<String>

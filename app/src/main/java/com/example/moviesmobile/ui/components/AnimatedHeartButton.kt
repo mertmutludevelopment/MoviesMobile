@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.delay
 
+// Animated heart icon button for favorite/unfavorite actions
 @Composable
 fun AnimatedHeartButton(
     modifier: Modifier = Modifier,
@@ -24,6 +25,7 @@ fun AnimatedHeartButton(
     var isPressed by remember { mutableStateOf(false) }
     var currentIcon by remember { mutableStateOf(isFavorite) }
     
+    // Scale animation for heart press effect
     val scale by animateFloatAsState(
         targetValue = if (isPressed) 1.3f else 1f,
         animationSpec = spring(

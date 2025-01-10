@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.sp
 import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.ui.theme.*
 
+// Input component for applying discount codes with validation
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DiscountCodeInput(

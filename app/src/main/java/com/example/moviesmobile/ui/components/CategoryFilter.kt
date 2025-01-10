@@ -13,6 +13,7 @@ import com.example.moviesmobile.constants.CategoryItem
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
 
+// Horizontal scrollable filter chips for movie category selection
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryFilter(

@@ -3,6 +3,7 @@ package com.example.moviesmobile.data.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// Entity class for storing favorite movies in local Room database
 @Entity(tableName = "favorite_movies")
 data class FavoriteMovie(
     @PrimaryKey

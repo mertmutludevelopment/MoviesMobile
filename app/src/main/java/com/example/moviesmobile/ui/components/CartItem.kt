@@ -20,6 +20,7 @@ import com.example.moviesmobile.ui.theme.OnSurface
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
 
+// Composable that displays a movie item in the shopping cart with its details and delete option
 @Composable
 fun CartItem(
     movie: CartMovie,
@@ -34,6 +35,7 @@ fun CartItem(
             containerColor = Surface
         )
     ) {
+        // Movie content layout
         Row(
             modifier = Modifier
                 .fillMaxWidth()

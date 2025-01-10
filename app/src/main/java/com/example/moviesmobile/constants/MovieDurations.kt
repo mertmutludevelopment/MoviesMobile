@@ -1,5 +1,6 @@
 package com.example.moviesmobile.constants
 
+// Manages movie durations and their formatting
 object MovieDurations {
     fun getDuration(movieName: String): Int {
         return when (movieName) {
@@ -27,7 +28,7 @@ object MovieDurations {
         }
     }
 
-    // Süreyi formatlamak için yardımcı fonksiyon
+    // Formats duration from minutes to "Xh Ym" format
     fun formatDuration(minutes: Int): String {
         val hours = minutes / 60
         val mins = minutes % 60

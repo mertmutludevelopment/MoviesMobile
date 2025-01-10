@@ -1,5 +1,7 @@
 package com.example.moviesmobile.data.entity
 
+
+// Represents a movie in the shopping cart with additional order details
 data class CartMovie(
     val cartId: Int,
     val name: String,

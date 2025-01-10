@@ -10,22 +10,27 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+// Dependency injection module that provides singleton instances for the application
+// Handles network and repository related dependencies
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
     
+    // Provides MoviesDao instance for API operations using Retrofit
     @Provides
     @Singleton
     fun provideMoviesDao(): MoviesDao {
         return ApiUtils.getFilmlerDao()
     }
 
+    // Provides MovieDataSource instance for handling data operations
     @Provides
     @Singleton
     fun provideMovieDataSource(moviesDao: MoviesDao): MovieDataSource {
         return MovieDataSource(moviesDao)
     }
 
+    // Provides MovieRepository instance as single source of truth
     @Provides
     @Singleton
     fun provideMovieRepository(movieDataSource: MovieDataSource): MovieRepository {
