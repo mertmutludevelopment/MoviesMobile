@@ -18,9 +18,10 @@ import kotlinx.coroutines.delay
 fun AnimatedHeartButton(
     modifier: Modifier = Modifier,
     tint: Color,
+    initialState: Boolean = false,
     onHeartClick: () -> Unit
 ) {
-    var isFavorite by remember { mutableStateOf(false) }
+    var isFavorite by remember { mutableStateOf(initialState) }
     var isPressed by remember { mutableStateOf(false) }
     
     val scale by animateFloatAsState(

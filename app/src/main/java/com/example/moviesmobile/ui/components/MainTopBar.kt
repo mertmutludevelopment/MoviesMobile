@@ -43,7 +43,7 @@ fun MainTopBar(navController: NavController) {
             }
         },
         actions = {
-            IconButton(onClick = { /* Favoriler işlevi eklenecek */ }) {
+            IconButton(onClick = { navController.navigate("favoriteScreen") }) {
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = "Favoriler",

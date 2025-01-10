@@ -22,12 +22,14 @@ import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.ui.theme.OnSurface
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
+import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
 @Composable
 fun TopRatedMovies(
     movies: List<Movie>,
     onMovieClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    favoriteViewModel: FavoriteScreenViewModel
 ) {
     Column(modifier = modifier) {
         Text(
@@ -103,7 +105,7 @@ fun TopRatedMovies(
                                 .padding(8.dp)
                                 .size(28.dp),
                             tint = Primary,
-                            onHeartClick = { /* TODO: Favoriye ekleme işlemi */ }
+                            onHeartClick = { favoriteViewModel.addToFavorites(movie) }
                         )
                     }
                 }

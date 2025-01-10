@@ -31,6 +31,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.draw.scale
+import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -38,7 +39,8 @@ import kotlinx.coroutines.launch
 fun FeaturedMovie(
     movie: Movie,
     onMovieClick: () -> Unit,
-    scrollOffset: Float = 0f
+    scrollOffset: Float = 0f,
+    favoriteViewModel: FavoriteScreenViewModel
 ) {
     Box(
         modifier = Modifier
@@ -141,7 +143,7 @@ fun FeaturedMovie(
                         .align(Alignment.TopEnd)
                         .padding(8.dp),
                     tint = Primary,
-                    onHeartClick = { /* TODO: Favoriye ekleme işlemi */ }
+                    onHeartClick = { favoriteViewModel.addToFavorites(movie) }
                 )
             }
         }

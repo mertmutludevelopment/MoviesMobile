@@ -9,6 +9,7 @@ import com.example.moviesmobile.ui.screens.ScreenNavigation
 import com.example.moviesmobile.ui.theme.MoviesMobileTheme
 import com.example.moviesmobile.ui.viewmodel.CartScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
+import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +18,7 @@ class MainActivity : ComponentActivity() {
     private val mainScreenViewModel: MainScreenViewModel by viewModels()
     private val detailScreenViewModel: DetailScreenViewModel by viewModels()
     private val cartScreenViewModel: CartScreenViewModel by viewModels()
-
+    private val favoriteScreenViewModel: FavoriteScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,8 @@ class MainActivity : ComponentActivity() {
                 ScreenNavigation(
                     mainScreenViewModel = mainScreenViewModel,
                     detailScreenViewModel = detailScreenViewModel,
-                    cartScreenViewModel= cartScreenViewModel
+                    cartScreenViewModel = cartScreenViewModel,
+                    favoriteScreenViewModel = favoriteScreenViewModel
                 )
             }
         }

@@ -9,12 +9,14 @@ import androidx.navigation.navArgument
 import com.example.moviesmobile.ui.viewmodel.CartScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
+import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
 @Composable
 fun ScreenNavigation(
     mainScreenViewModel: MainScreenViewModel,
     detailScreenViewModel: DetailScreenViewModel,
-    cartScreenViewModel: CartScreenViewModel
+    cartScreenViewModel: CartScreenViewModel,
+    favoriteScreenViewModel: FavoriteScreenViewModel
 ) {
     val navController = rememberNavController()
 
@@ -26,7 +28,8 @@ fun ScreenNavigation(
         composable("mainScreen") {
             MainScreen(
                 navController = navController,
-                mainScreenViewModel = mainScreenViewModel
+                mainScreenViewModel = mainScreenViewModel,
+                favoriteViewModel = favoriteScreenViewModel
             )
         }
 
@@ -48,6 +51,13 @@ fun ScreenNavigation(
             CartScreen(
                 navController = navController,
                 viewModel = cartScreenViewModel
+            )
+        }
+
+        composable("favoriteScreen") {
+            FavoriteScreen(
+                navController = navController,
+                viewModel = favoriteScreenViewModel
             )
         }
     }

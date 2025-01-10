@@ -12,11 +12,13 @@ import com.example.moviesmobile.constants.Categories
 import com.example.moviesmobile.ui.components.*
 import com.example.moviesmobile.ui.theme.Background
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
+import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
 @Composable
 fun MainScreen(
     navController: NavController,
-    mainScreenViewModel: MainScreenViewModel
+    mainScreenViewModel: MainScreenViewModel,
+    favoriteViewModel: FavoriteScreenViewModel
 ) {
     LaunchedEffect(Unit) {
         navController.enableOnBackPressed(true)
@@ -88,7 +90,8 @@ fun MainScreen(
                                     popUpTo("mainScreen") { saveState = true }
                                 }
                             },
-                            scrollOffset = firstVisibleItemOffset.value
+                            scrollOffset = firstVisibleItemOffset.value,
+                            favoriteViewModel = favoriteViewModel
                         )
                     }
                 }
@@ -100,7 +103,8 @@ fun MainScreen(
                             navController.navigate("detailScreen/$movieId") {
                                 popUpTo("mainScreen") { saveState = true }
                             }
-                        }
+                        },
+                        favoriteViewModel = favoriteViewModel
                     )
                 }
             }
@@ -112,7 +116,8 @@ fun MainScreen(
                         navController.navigate("detailScreen/$movieId") {
                             popUpTo("mainScreen") { saveState = true }
                         }
-                    }
+                    },
+                    favoriteViewModel = favoriteViewModel
                 )
             }
         }

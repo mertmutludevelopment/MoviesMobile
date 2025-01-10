@@ -27,6 +27,7 @@ import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.constants.MovieDurations
 import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.ui.theme.*
+import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
 @Composable
 fun CategoryChip(
@@ -62,9 +63,9 @@ fun CategoryChip(
 fun DiscoverMovies(
     movies: List<Movie>,
     onMovieClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    favoriteViewModel: FavoriteScreenViewModel
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = Modifier) {
         Text(
             text = "Discover Movies",
             color = OnSurface,
@@ -169,7 +170,7 @@ fun DiscoverMovies(
                             // Kalp ikonunu değiştiriyoruz
                             AnimatedHeartButton(
                                 tint = Primary,
-                                onHeartClick = { /* TODO: Favoriye ekleme işlemi */ }
+                                onHeartClick = { favoriteViewModel.addToFavorites(movie) }
                             )
 
                             // Genişletme/Daraltma ikonu
