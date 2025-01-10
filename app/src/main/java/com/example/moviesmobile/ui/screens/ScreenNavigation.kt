@@ -18,7 +18,11 @@ fun ScreenNavigation(
 ) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "mainScreen") {
+    NavHost(navController = navController, startDestination = "splashScreen") {
+        composable("splashScreen") {
+            SplashScreen(navController = navController)
+        }
+
         composable("mainScreen") {
             MainScreen(
                 navController = navController,
