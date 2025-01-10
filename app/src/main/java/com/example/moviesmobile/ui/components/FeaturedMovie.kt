@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import androidx.compose.runtime.rememberCoroutineScope
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
+// Featured movie card with parallax scrolling effect and favorite functionality
 @Composable
 fun FeaturedMovie(
     movie: Movie,

@@ -14,6 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+// Top bar component for favorites screen with back navigation
+// Uses a centered title with equal spacing on both sides
 @Composable
 fun FavoriteTopBar(
     onBackClick: () -> Unit

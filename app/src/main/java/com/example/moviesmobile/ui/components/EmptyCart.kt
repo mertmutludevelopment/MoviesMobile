@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.ui.theme.OnPrimary
 import com.example.moviesmobile.ui.theme.Primary
 
+// Displays empty state message when shopping cart has no items
 @Composable
 fun EmptyCart() {
     Column(

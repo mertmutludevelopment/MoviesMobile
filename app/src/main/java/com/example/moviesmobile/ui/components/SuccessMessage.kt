@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.ui.theme.Background
 import com.example.moviesmobile.ui.theme.Primary
 
+// Animated success message overlay with checkmark icon
+// Shows when cart operation completes successfully
 @Composable
 fun SuccessMessage(
     visible: Boolean,

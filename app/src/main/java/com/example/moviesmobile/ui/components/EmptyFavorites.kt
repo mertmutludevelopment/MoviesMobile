@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviesmobile.ui.theme.Primary
 
+// Displays empty state message when favorites list is empty with guidance text
 @Composable
 fun EmptyFavorites() {
     Column(

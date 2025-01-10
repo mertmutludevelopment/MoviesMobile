@@ -15,6 +15,7 @@ import com.example.moviesmobile.constants.Review
 import com.example.moviesmobile.ui.theme.OnPrimary
 import com.example.moviesmobile.ui.theme.Primary
 
+// Card component for displaying individual movie reviews
 @Composable
 fun ReviewCard(
     review: Review,

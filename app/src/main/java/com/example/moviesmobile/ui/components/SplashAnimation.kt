@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.*
 import com.example.moviesmobile.R
 
+// Lottie animation component for splash screen
 @Composable
 fun SplashAnimation() {
     val composition by rememberLottieComposition(

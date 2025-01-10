@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.ui.theme.OnSurface
 import com.example.moviesmobile.ui.theme.Surface
 
+// Search bar component for filtering movies with custom styling
+// Provides real-time search functionality with outlined text field
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainSearchBar(

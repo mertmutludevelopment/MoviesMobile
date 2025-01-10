@@ -12,6 +12,7 @@ import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.ui.theme.OnPrimary
 import com.example.moviesmobile.ui.theme.Primary
 
+// Header component displaying movie title, category, year and rating
 @Composable
 fun MovieDetailHeader(
     movie: Movie,

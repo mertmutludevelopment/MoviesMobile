@@ -12,6 +12,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 
+// Displays movie poster image
 @Composable
 fun MovieDetailImage(
     imageUrl: String,

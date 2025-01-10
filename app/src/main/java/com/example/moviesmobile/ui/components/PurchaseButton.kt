@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviesmobile.ui.theme.*
 
+// Bottom purchase button component with price display and add to cart functionality
 @Composable
 fun PurchaseButton(
     price: Double,

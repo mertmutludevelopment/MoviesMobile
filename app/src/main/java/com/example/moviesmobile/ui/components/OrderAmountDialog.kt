@@ -15,6 +15,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.OnPrimary
 
+// Animated dialog for selecting movie ticket quantity with price calculation
 @Composable
 fun OrderAmountDialog(
     showDialog: Boolean,
@@ -26,7 +27,7 @@ fun OrderAmountDialog(
 ) {
     var isVisible by remember { mutableStateOf(false) }
 
-    // Dialog görünürlüğünü takip et
+    // Track dialog visibility for animation
     LaunchedEffect(showDialog) {
         isVisible = showDialog
     }

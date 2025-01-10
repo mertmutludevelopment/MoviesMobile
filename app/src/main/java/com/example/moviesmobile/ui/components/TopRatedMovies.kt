@@ -22,6 +22,7 @@ import com.example.moviesmobile.ui.theme.Surface
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import kotlinx.coroutines.launch
 
+// Horizontal scrollable list of top rated movies with favorite functionality
 @Composable
 fun TopRatedMovies(
     movies: List<Movie>,

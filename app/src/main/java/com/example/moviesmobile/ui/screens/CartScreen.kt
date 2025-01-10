@@ -28,6 +28,8 @@ import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.ui.components.DiscountCodeInput
 import androidx.activity.compose.BackHandler
 
+// Shopping cart screen that displays cart items, total price and discount options
+// Handles item removal, discount application and purchase completion
 @Composable
 fun CartScreen(
     navController: NavController,
@@ -51,6 +53,7 @@ fun CartScreen(
             .fillMaxSize()
             .background(Background)
     ) {
+        // Main content section - only show when not in success state
         if (!showSuccess) {
             Column(
                 modifier = Modifier.fillMaxSize()
@@ -61,9 +64,11 @@ fun CartScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+                // Show empty state or cart items list
                 if (cartItems.isEmpty()) {
                     EmptyCart()
                 } else {
+                    // Cart items list section
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -86,12 +91,14 @@ fun CartScreen(
                         }
                     }
 
+                    // Bottom section with discount and total price
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(Background)
                     ) {
                         Column {
+                            // Discount code input section
                             DiscountCodeInput(
                                 onDiscountApplied = { isDiscounted ->
                                     isDiscountApplied = isDiscounted
@@ -101,6 +108,7 @@ fun CartScreen(
                                     .padding(top = 16.dp)
                             )
                             
+                            // Calculate total price with discount if applied
                             val originalPrice = cartItems.sumOf { it.price * it.orderAmount }.toDouble()
                             val finalPrice = if (isDiscountApplied) {
                                 originalPrice * (1 - AppConstants.DISCOUNT_PERCENTAGE)

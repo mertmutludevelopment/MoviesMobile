@@ -11,6 +11,7 @@ import com.example.moviesmobile.constants.MovieCrew
 import com.example.moviesmobile.ui.theme.OnPrimary
 import com.example.moviesmobile.ui.theme.Primary
 
+// Displays movie's director and cast information in a card layout
 @Composable
 fun MovieCrewSection(
     crew: MovieCrew,

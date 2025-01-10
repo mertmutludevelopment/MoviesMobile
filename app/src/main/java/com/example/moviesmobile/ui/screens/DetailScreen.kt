@@ -19,6 +19,8 @@ import com.example.moviesmobile.constants.MovieCrewData
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import androidx.compose.ui.graphics.graphicsLayer
 
+// Movie detail screen displaying comprehensive movie information
+// Includes movie poster, details, crew info, reviews and purchase options
 @Composable
 fun DetailScreen(
     navController: NavController,
@@ -31,6 +33,7 @@ fun DetailScreen(
     var showOrderDialog by remember { mutableStateOf(false) }
     var selectedAmount by remember { mutableStateOf(1) }
     
+    // Scroll state for parallax effect and button visibility
     val scrollState = rememberScrollState()
     val buttonsAlpha by remember {
         derivedStateOf {
@@ -47,12 +50,14 @@ fun DetailScreen(
             .fillMaxSize()
             .background(Background)
     ) {
+        // Scrollable content section
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 70.dp)
                 .verticalScroll(scrollState)
         ) {
+            // Movie poster section
             Box {
                 movie?.let { currentMovie ->
                     MovieDetailImage(
@@ -61,16 +66,20 @@ fun DetailScreen(
                 }
             }
 
+            // Movie information sections
             movie?.let { currentMovie ->
+                // Header with title, category, year and rating
                 MovieDetailHeader(
                     movie = currentMovie
                 )
 
+                // Movie plot and description
                 MovieDescription(
                     description = description,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 
+                // Cast and crew information
                 MovieCrewData.crewInfo[currentMovie.name]?.let { crew ->
                     MovieCrewSection(
                         crew = crew,
@@ -78,6 +87,7 @@ fun DetailScreen(
                     )
                 }
                 
+                // User reviews section
                 MovieReviewSection(
                     reviews = Reviews.movieReviews,
                     modifier = Modifier.padding(bottom = 80.dp)
@@ -85,6 +95,7 @@ fun DetailScreen(
             }
         }
 
+        // Top bar with back button and favorite toggle
         DetailTopBar(
             navController = navController,
             movie = movie ?: return,
@@ -93,6 +104,7 @@ fun DetailScreen(
             alpha = buttonsAlpha
         )
 
+        // Bottom purchase button
         PurchaseButton(
             price = movie?.price?.toDouble() ?: 0.0,
             onClick = { showOrderDialog = true },
@@ -101,6 +113,7 @@ fun DetailScreen(
                 .padding(bottom = 16.dp)
         )
 
+        // Ticket quantity selection dialog
         OrderAmountDialog(
             showDialog = showOrderDialog,
             selectedAmount = selectedAmount,

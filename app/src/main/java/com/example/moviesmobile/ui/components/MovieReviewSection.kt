@@ -15,6 +15,7 @@ import com.example.moviesmobile.constants.Review
 import com.example.moviesmobile.ui.theme.OnPrimary
 import com.example.moviesmobile.ui.theme.Primary
 
+// Displays movie reviews with expandable list functionality
 @Composable
 fun MovieReviewSection(
     reviews: List<Review>,

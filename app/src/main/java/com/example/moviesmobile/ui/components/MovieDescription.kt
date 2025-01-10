@@ -11,6 +11,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.ui.theme.OnPrimary
 
+// Displays movie description in a card layout with a title
+// Shows detailed plot and storyline information
 @Composable
 fun MovieDescription(
     description: String,

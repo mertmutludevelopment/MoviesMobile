@@ -17,6 +17,8 @@ import com.example.moviesmobile.ui.theme.OnSurface
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
 
+// Card displaying total price with optional discount calculation
+// Shows original and discounted prices when discount is applied
 @Composable
 fun TotalPriceCard(
     totalPrice: Double,

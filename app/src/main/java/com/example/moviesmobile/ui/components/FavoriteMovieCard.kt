@@ -25,6 +25,8 @@ import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
 import androidx.compose.foundation.border
 
+// Card component for favorite movies with swipe-to-delete functionality
+// Displays movie poster, title, rating and year with gradient overlay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FavoriteMovieCard(
@@ -32,6 +34,7 @@ fun FavoriteMovieCard(
     onMovieClick: () -> Unit,
     onRemoveClick: () -> Unit
 ) {
+    // Swipe state for delete action
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->
             if (value == SwipeToDismissBoxValue.EndToStart) {

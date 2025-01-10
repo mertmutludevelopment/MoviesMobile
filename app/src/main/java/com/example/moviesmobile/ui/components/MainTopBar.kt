@@ -17,6 +17,7 @@ import com.example.moviesmobile.ui.theme.OnSurface
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
 
+// Main app bar with app logo, title and navigation icons
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainTopBar(navController: NavController) {

@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+// Animated text components for splash screen with app name and tagline
 @Composable
 fun SplashTexts(alphaAnim: Float) {
     Text(

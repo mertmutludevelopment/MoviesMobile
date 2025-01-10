@@ -16,6 +16,8 @@ import com.example.moviesmobile.ui.theme.Background
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import kotlinx.coroutines.launch
 
+// Screen for displaying user's favorite movies with swipe-to-remove functionality
+// Shows empty state when no favorites are present
 @Composable
 fun FavoriteScreen(
     navController: NavController,
@@ -35,9 +37,11 @@ fun FavoriteScreen(
                 onBackClick = { navController.popBackStack() }
             )
 
+            // Show empty state or favorite movies list
             if (favoriteMovies.isEmpty()) {
                 EmptyFavorites()
             } else {
+                // Scrollable list of favorite movies
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
@@ -75,6 +79,7 @@ fun FavoriteScreen(
     }
 }
 
+// Helper function to convert FavoriteMovie entity to Movie model
 private fun FavoriteMovie.toMovie() = Movie(
     id = movieId,
     name = name,
