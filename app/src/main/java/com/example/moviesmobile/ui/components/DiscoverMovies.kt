@@ -160,18 +160,34 @@ fun DiscoverMovies(
                             }
                         }
 
-                        IconButton(
-                            onClick = { expanded = !expanded },
+                        Row(
                             modifier = Modifier
                                 .align(Alignment.BottomEnd)
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.KeyboardArrowDown,
-                                contentDescription = if (expanded) "Show less" else "Show more",
-                                tint = Color.White,
-                                modifier = Modifier.rotate(rotationState)
-                            )
+                            // Kalp ikonu
+                            IconButton(
+                                onClick = { /* TODO: Favoriye ekleme işlemi */ }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Favorite,
+                                    contentDescription = "Add to favorites",
+                                    tint = Primary
+                                )
+                            }
+
+                            // Genişletme/Daraltma ikonu
+                            IconButton(
+                                onClick = { expanded = !expanded }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.KeyboardArrowDown,
+                                    contentDescription = if (expanded) "Show less" else "Show more",
+                                    tint = Color.White,
+                                    modifier = Modifier.rotate(rotationState)
+                                )
+                            }
                         }
                     }
 

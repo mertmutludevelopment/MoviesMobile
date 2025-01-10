@@ -4,11 +4,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,48 +50,65 @@ fun TopRatedMovies(
                     colors = CardDefaults.cardColors(containerColor = Surface),
                     onClick = { onMovieClick(movie.id) }
                 ) {
-                    Column {
-                        AsyncImage(
-                            model = "${AppConstants.IMAGE_URL}${movie.image}",
-                            contentDescription = movie.name,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(200.dp)
-                                .clip(RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-
-                        Column(
-                            modifier = Modifier.padding(8.dp)
-                        ) {
-                            Text(
-                                text = movie.name,
-                                color = OnSurface,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                maxLines = 1
+                    Box {
+                        Column {
+                            AsyncImage(
+                                model = "${AppConstants.IMAGE_URL}${movie.image}",
+                                contentDescription = movie.name,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp)
+                                    .clip(RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)),
+                                contentScale = ContentScale.Crop
                             )
 
-                            Spacer(modifier = Modifier.height(4.dp))
-
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                modifier = Modifier.fillMaxWidth()
+                            Column(
+                                modifier = Modifier.padding(8.dp)
                             ) {
                                 Text(
-                                    text = movie.year.toString(),
-                                    color = OnSurface.copy(alpha = 0.7f),
-                                    fontSize = 14.sp
+                                    text = movie.name,
+                                    color = OnSurface,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1
                                 )
 
-                                Text(
-                                    text = "★ ${movie.rating}",
-                                    color = Primary,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text(
+                                        text = movie.year.toString(),
+                                        color = OnSurface.copy(alpha = 0.7f),
+                                        fontSize = 14.sp
+                                    )
+
+                                    Text(
+                                        text = "★ ${movie.rating}",
+                                        color = Primary,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
                             }
+                        }
+
+                        // Sadece kalp ikonu eklendi
+                        IconButton(
+                            onClick = { /* TODO: Favoriye ekleme işlemi */ },
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .padding(4.dp)
+                                .size(24.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Favorite,
+                                contentDescription = "Add to favorites",
+                                tint = Primary
+                            )
                         }
                     }
                 }

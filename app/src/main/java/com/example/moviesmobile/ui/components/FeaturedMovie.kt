@@ -20,6 +20,8 @@ import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.ui.theme.OnPrimary
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 
 @Composable
 fun FeaturedMovie(
@@ -122,7 +124,20 @@ fun FeaturedMovie(
                         }
                     }
                 }
+
+                IconButton(
+                    onClick = { /* TODO: Favoriye ekleme işlemi */ },
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = "Add to favorites",
+                        tint = Primary
+                    )
+                }
             }
         }
     }
-} 
+}
