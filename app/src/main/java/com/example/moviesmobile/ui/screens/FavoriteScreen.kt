@@ -14,6 +14,7 @@ import com.example.moviesmobile.data.entity.FavoriteMovie
 import com.example.moviesmobile.ui.components.*
 import com.example.moviesmobile.ui.theme.Background
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
+import com.example.moviesmobile.utils.MovieMappers.toMovie
 import kotlinx.coroutines.launch
 
 // Screen for displaying user's favorite movies with swipe-to-remove functionality
@@ -78,17 +79,4 @@ fun FavoriteScreen(
         }
     }
 }
-
-// Helper function to convert FavoriteMovie entity to Movie model
-private fun FavoriteMovie.toMovie() = Movie(
-    id = movieId,
-    name = name,
-    image = image,
-    category = category,
-    price = price,
-    rating = rating,
-    year = year,
-    director = director,
-    description = description
-)
 
