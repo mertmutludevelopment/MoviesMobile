@@ -1,5 +1,6 @@
 package com.example.moviesmobile.util
 
+// Utility object for providing movie descriptions
 object MovieDescriptions {
     fun getDescription(movieName: String, director: String? = null, year: Int = 0): String {
         return when (movieName) {

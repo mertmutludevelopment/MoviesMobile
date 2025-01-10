@@ -13,8 +13,11 @@ import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+// Main entry point of the application
+// Initializes ViewModels and sets up navigation
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    // ViewModels 
     private val mainScreenViewModel: MainScreenViewModel by viewModels()
     private val detailScreenViewModel: DetailScreenViewModel by viewModels()
     private val cartScreenViewModel: CartScreenViewModel by viewModels()
@@ -25,6 +28,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MoviesMobileTheme {
+                // Set up navigation with required ViewModels
                 ScreenNavigation(
                     mainScreenViewModel = mainScreenViewModel,
                     detailScreenViewModel = detailScreenViewModel,
