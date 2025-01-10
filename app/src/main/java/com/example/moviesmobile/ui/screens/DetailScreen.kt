@@ -16,11 +16,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.constants.Reviews
 import com.example.moviesmobile.constants.MovieCrewData
+import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
 @Composable
 fun DetailScreen(
     navController: NavController,
     viewModel: DetailScreenViewModel,
+    favoriteViewModel: FavoriteScreenViewModel,
     movieId: Int
 ) {
     val movie by viewModel.movie.collectAsState()
@@ -55,7 +57,7 @@ fun DetailScreen(
                 MovieDetailHeader(
                     movie = currentMovie
                 )
-                
+
                 MovieDescription(
                     description = description,
                     modifier = Modifier.padding(bottom = 16.dp)
@@ -77,6 +79,8 @@ fun DetailScreen(
 
         DetailTopBar(
             navController = navController,
+            movie = movie ?: return,
+            favoriteViewModel = favoriteViewModel,
             modifier = Modifier.align(Alignment.TopStart)
         )
 

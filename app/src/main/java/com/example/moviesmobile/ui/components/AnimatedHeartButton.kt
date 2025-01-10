@@ -18,11 +18,11 @@ import kotlinx.coroutines.delay
 fun AnimatedHeartButton(
     modifier: Modifier = Modifier,
     tint: Color,
-    initialState: Boolean = false,
+    isFavorite: Boolean = false,
     onHeartClick: () -> Unit
 ) {
-    var isFavorite by remember { mutableStateOf(initialState) }
     var isPressed by remember { mutableStateOf(false) }
+    var currentIcon by remember { mutableStateOf(isFavorite) }
     
     val scale by animateFloatAsState(
         targetValue = if (isPressed) 1.3f else 1f,
@@ -34,22 +34,26 @@ fun AnimatedHeartButton(
 
     LaunchedEffect(isPressed) {
         if (isPressed) {
+            currentIcon = !currentIcon
             delay(350)
             isPressed = false
         }
     }
 
+    LaunchedEffect(isFavorite) {
+        currentIcon = isFavorite
+    }
+
     IconButton(
         onClick = { 
             isPressed = true
-            isFavorite = !isFavorite
             onHeartClick()
         },
         modifier = modifier
     ) {
         Icon(
-            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-            contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+            imageVector = if (currentIcon) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+            contentDescription = if (currentIcon) "Remove from favorites" else "Add to favorites",
             tint = tint,
             modifier = Modifier.scale(scale)
         )

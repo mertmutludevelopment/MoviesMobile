@@ -122,5 +122,9 @@ fun MainScreen(
             }
         }
     }
+
+    LaunchedEffect(Unit) {
+        favoriteViewModel.syncFavoriteStates()
+    }
 }
 

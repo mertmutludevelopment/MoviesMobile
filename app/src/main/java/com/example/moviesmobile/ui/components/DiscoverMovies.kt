@@ -170,7 +170,8 @@ fun DiscoverMovies(
                             // Kalp ikonunu değiştiriyoruz
                             AnimatedHeartButton(
                                 tint = Primary,
-                                onHeartClick = { favoriteViewModel.addToFavorites(movie) }
+                                isFavorite = favoriteViewModel.isFavorite(movie),
+                                onHeartClick = { favoriteViewModel.toggleFavorite(movie) }
                             )
 
                             // Genişletme/Daraltma ikonu

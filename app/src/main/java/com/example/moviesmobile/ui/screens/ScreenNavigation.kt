@@ -43,6 +43,7 @@ fun ScreenNavigation(
             DetailScreen(
                 navController = navController,
                 viewModel = detailScreenViewModel,
+                favoriteViewModel = favoriteScreenViewModel,
                 movieId = movieId
             )
         }

@@ -105,7 +105,8 @@ fun TopRatedMovies(
                                 .padding(8.dp)
                                 .size(28.dp),
                             tint = Primary,
-                            onHeartClick = { favoriteViewModel.addToFavorites(movie) }
+                            isFavorite = favoriteViewModel.isFavorite(movie),
+                            onHeartClick = { favoriteViewModel.toggleFavorite(movie) }
                         )
                     }
                 }

@@ -143,7 +143,8 @@ fun FeaturedMovie(
                         .align(Alignment.TopEnd)
                         .padding(8.dp),
                     tint = Primary,
-                    onHeartClick = { favoriteViewModel.addToFavorites(movie) }
+                    isFavorite = favoriteViewModel.isFavorite(movie),
+                    onHeartClick = { favoriteViewModel.toggleFavorite(movie) }
                 )
             }
         }
