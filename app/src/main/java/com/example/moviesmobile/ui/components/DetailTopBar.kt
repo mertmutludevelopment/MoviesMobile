@@ -7,7 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun DetailTopBar(
@@ -24,6 +25,14 @@ fun DetailTopBar(
     favoriteViewModel: FavoriteScreenViewModel,
     modifier: Modifier = Modifier
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    var isFavorite by remember { mutableStateOf(false) }
+
+    // İlk yüklemede favori durumunu kontrol et
+    LaunchedEffect(movie.id) {
+        isFavorite = favoriteViewModel.isFavorite(movie)
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,8 +53,13 @@ fun DetailTopBar(
         AnimatedHeartButton(
             modifier = Modifier,
             tint = Primary,
-            isFavorite = favoriteViewModel.isFavorite(movie),
-            onHeartClick = { favoriteViewModel.toggleFavorite(movie) }
+            isFavorite = isFavorite,
+            onHeartClick = {
+                coroutineScope.launch {
+                    favoriteViewModel.toggleFavorite(movie)
+                    isFavorite = !isFavorite
+                }
+            }
         )
     }
 } 

@@ -4,14 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesmobile.data.entity.Movie
+import com.example.moviesmobile.data.entity.FavoriteMovie
 import com.example.moviesmobile.ui.components.*
 import com.example.moviesmobile.ui.theme.Background
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun FavoriteScreen(
@@ -19,6 +22,8 @@ fun FavoriteScreen(
     viewModel: FavoriteScreenViewModel
 ) {
     val favoriteMovies by viewModel.favoriteMovies.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+    var isRemoving by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -33,46 +38,52 @@ fun FavoriteScreen(
             if (favoriteMovies.isEmpty()) {
                 EmptyFavorites()
             } else {
-                FavoriteMoviesList(
-                    movies = favoriteMovies,
-                    onMovieClick = { movieId -> 
-                        navController.navigate("detailScreen/$movieId") 
-                    },
-                    onRemoveClick = { movie ->
-                        viewModel.removeFromFavorites(movie)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 16.dp),
+                    contentPadding = PaddingValues(
+                        top = 16.dp,
+                        bottom = 80.dp
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    itemsIndexed(
+                        items = favoriteMovies,
+                        key = { _, movie -> movie.movieId }
+                    ) { index, favoriteMovie ->
+                        val movie = favoriteMovie.toMovie()
+                        FavoriteMovieCard(
+                            movie = movie,
+                            onMovieClick = { 
+                                navController.navigate("detailScreen/${movie.id}") 
+                            },
+                            onRemoveClick = {
+                                if (!isRemoving) {
+                                    isRemoving = true
+                                    coroutineScope.launch {
+                                        viewModel.toggleFavorite(movie)
+                                        isRemoving = false
+                                    }
+                                }
+                            }
+                        )
                     }
-                )
+                }
             }
         }
     }
 }
 
-@Composable
-private fun FavoriteMoviesList(
-    movies: List<Movie>,
-    onMovieClick: (Int) -> Unit,
-    onRemoveClick: (Movie) -> Unit
-) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-        contentPadding = PaddingValues(
-            top = 16.dp,
-            bottom = 80.dp
-        ),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(
-            items = movies,
-            key = { it.id }
-        ) { movie ->
-            FavoriteMovieCard(
-                movie = movie,
-                onMovieClick = { onMovieClick(movie.id) },
-                onRemoveClick = { onRemoveClick(movie) }
-            )
-        }
-    }
-}
+private fun FavoriteMovie.toMovie() = Movie(
+    id = movieId,
+    name = name,
+    image = image,
+    category = category,
+    price = price,
+    rating = rating,
+    year = year,
+    director = director,
+    description = description
+)
 

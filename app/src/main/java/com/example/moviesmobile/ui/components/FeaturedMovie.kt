@@ -5,7 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,25 +23,24 @@ import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.draw.scale
-import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
+import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 
 @Composable
 fun FeaturedMovie(
     movie: Movie,
-    onMovieClick: () -> Unit,
+    onMovieClick: (Int) -> Unit,
     scrollOffset: Float = 0f,
     favoriteViewModel: FavoriteScreenViewModel
 ) {
+    var isFavorite by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(movie.id) {
+        isFavorite = favoriteViewModel.isFavorite(movie)
+    }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -57,7 +56,7 @@ fun FeaturedMovie(
                 },
             shape = RoundedCornerShape(12.dp),
             colors = CardDefaults.cardColors(containerColor = Surface),
-            onClick = onMovieClick
+            onClick = { onMovieClick(movie.id) }
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 AsyncImage(
@@ -143,8 +142,13 @@ fun FeaturedMovie(
                         .align(Alignment.TopEnd)
                         .padding(8.dp),
                     tint = Primary,
-                    isFavorite = favoriteViewModel.isFavorite(movie),
-                    onHeartClick = { favoriteViewModel.toggleFavorite(movie) }
+                    isFavorite = isFavorite,
+                    onHeartClick = {
+                        coroutineScope.launch {
+                            favoriteViewModel.toggleFavorite(movie)
+                            isFavorite = !isFavorite
+                        }
+                    }
                 )
             }
         }

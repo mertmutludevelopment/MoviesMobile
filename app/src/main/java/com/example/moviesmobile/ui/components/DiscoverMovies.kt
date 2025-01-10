@@ -28,6 +28,7 @@ import com.example.moviesmobile.constants.MovieDurations
 import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.ui.theme.*
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun CategoryChip(
@@ -65,6 +66,18 @@ fun DiscoverMovies(
     onMovieClick: (Int) -> Unit,
     favoriteViewModel: FavoriteScreenViewModel
 ) {
+    var favoriteStates by remember { mutableStateOf(mapOf<Int, Boolean>()) }
+    val coroutineScope = rememberCoroutineScope()
+
+    // İlk yüklemede tüm filmlerin favori durumunu kontrol et
+    LaunchedEffect(movies) {
+        val states = mutableMapOf<Int, Boolean>()
+        movies.forEach { movie ->
+            states[movie.id] = favoriteViewModel.isFavorite(movie)
+        }
+        favoriteStates = states
+    }
+
     Column(modifier = Modifier) {
         Text(
             text = "Discover Movies",
@@ -170,8 +183,15 @@ fun DiscoverMovies(
                             // Kalp ikonunu değiştiriyoruz
                             AnimatedHeartButton(
                                 tint = Primary,
-                                isFavorite = favoriteViewModel.isFavorite(movie),
-                                onHeartClick = { favoriteViewModel.toggleFavorite(movie) }
+                                isFavorite = favoriteStates[movie.id] ?: false,
+                                onHeartClick = {
+                                    coroutineScope.launch {
+                                        favoriteViewModel.toggleFavorite(movie)
+                                        favoriteStates = favoriteStates.toMutableMap().apply {
+                                            put(movie.id, !(favoriteStates[movie.id] ?: false))
+                                        }
+                                    }
+                                }
                             )
 
                             // Genişletme/Daraltma ikonu

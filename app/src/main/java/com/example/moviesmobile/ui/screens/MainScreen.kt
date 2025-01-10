@@ -20,10 +20,6 @@ fun MainScreen(
     mainScreenViewModel: MainScreenViewModel,
     favoriteViewModel: FavoriteScreenViewModel
 ) {
-    LaunchedEffect(Unit) {
-        navController.enableOnBackPressed(true)
-    }
-    
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("All") }
     val movies by mainScreenViewModel.movies.collectAsState()
@@ -81,12 +77,12 @@ fun MainScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             if (searchQuery.isEmpty()) {
-                featuredMovie?.let {
+                featuredMovie?.let { movie ->
                     item {
                         FeaturedMovie(
-                            movie = it,
-                            onMovieClick = { 
-                                navController.navigate("detailScreen/${it.id}") {
+                            movie = movie,
+                            onMovieClick = { movieId ->
+                                navController.navigate("detailScreen/$movieId") {
                                     popUpTo("mainScreen") { saveState = true }
                                 }
                             },
@@ -121,10 +117,6 @@ fun MainScreen(
                 )
             }
         }
-    }
-
-    LaunchedEffect(Unit) {
-        favoriteViewModel.syncFavoriteStates()
     }
 }
 
