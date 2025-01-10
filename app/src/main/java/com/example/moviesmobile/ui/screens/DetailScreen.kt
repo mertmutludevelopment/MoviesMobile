@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.constants.Reviews
 import com.example.moviesmobile.constants.MovieCrewData
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
+import androidx.compose.ui.graphics.graphicsLayer
 
 @Composable
 fun DetailScreen(
@@ -29,6 +30,13 @@ fun DetailScreen(
     val description by viewModel.description.collectAsState()
     var showOrderDialog by remember { mutableStateOf(false) }
     var selectedAmount by remember { mutableStateOf(1) }
+    
+    val scrollState = rememberScrollState()
+    val buttonsAlpha by remember {
+        derivedStateOf {
+            if (scrollState.value > 150) 0f else (150 - scrollState.value) / 150f
+        }
+    }
 
     LaunchedEffect(movieId) {
         viewModel.loadMovie(movieId)
@@ -43,7 +51,7 @@ fun DetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 70.dp)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(scrollState)
         ) {
             Box {
                 movie?.let { currentMovie ->
@@ -81,7 +89,8 @@ fun DetailScreen(
             navController = navController,
             movie = movie ?: return,
             favoriteViewModel = favoriteViewModel,
-            modifier = Modifier.align(Alignment.TopStart)
+            modifier = Modifier.align(Alignment.TopStart),
+            alpha = buttonsAlpha
         )
 
         PurchaseButton(

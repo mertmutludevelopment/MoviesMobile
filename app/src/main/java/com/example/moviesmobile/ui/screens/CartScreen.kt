@@ -48,7 +48,6 @@ fun CartScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 CartTopBar(
-                    title = "Shopping Cart",
                     navController = navController
                 )
 

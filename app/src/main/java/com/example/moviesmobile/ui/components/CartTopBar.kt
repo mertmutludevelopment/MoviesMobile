@@ -11,21 +11,25 @@ import com.example.moviesmobile.ui.theme.Surface
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartTopBar(
-    title: String,
     navController: NavController
 ) {
-    TopAppBar(
-        title = { Text(text = title, color = OnSurface) },
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                text = "Shopping Cart",
+                color = OnSurface
+            )
+        },
         navigationIcon = {
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Geri",
+                    contentDescription = "Back",
                     tint = OnSurface
                 )
             }
         },
-        colors = TopAppBarDefaults.topAppBarColors(
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = Surface
         )
     )

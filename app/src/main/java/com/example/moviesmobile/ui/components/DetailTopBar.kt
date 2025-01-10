@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesmobile.ui.theme.Primary
@@ -23,7 +24,8 @@ fun DetailTopBar(
     navController: NavController,
     movie: Movie,
     favoriteViewModel: FavoriteScreenViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    alpha: Float = 1f
 ) {
     val coroutineScope = rememberCoroutineScope()
     var isFavorite by remember { mutableStateOf(false) }
@@ -34,14 +36,15 @@ fun DetailTopBar(
     }
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
-            onClick = { navController.popBackStack() }
+            onClick = { navController.popBackStack() },
+            modifier = Modifier.graphicsLayer(alpha = alpha)
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
@@ -51,7 +54,7 @@ fun DetailTopBar(
         }
 
         AnimatedHeartButton(
-            modifier = Modifier,
+            modifier = Modifier.graphicsLayer(alpha = alpha),
             tint = Primary,
             isFavorite = isFavorite,
             onHeartClick = {
