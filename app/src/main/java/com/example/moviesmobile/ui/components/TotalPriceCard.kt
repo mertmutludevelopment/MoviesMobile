@@ -7,8 +7,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.ui.theme.OnSurface
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
@@ -17,22 +21,19 @@ import com.example.moviesmobile.ui.theme.Surface
 fun TotalPriceCard(
     totalPrice: Double,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isDiscounted: Boolean = false
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Surface
-        ),
-        shape = RoundedCornerShape(16.dp)
+            .padding(16.dp)
+            .clickable(onClick = onClick),
+        colors = CardDefaults.cardColors(containerColor = Surface),
+        shape = RoundedCornerShape(12.dp)
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = onClick)
-                .padding(16.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -40,23 +41,44 @@ fun TotalPriceCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Total",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = OnSurface
-                )
-                Text(
-                    text = "$${String.format("%.2f", totalPrice)}",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = Primary,
+                    text = "Total Price:",
+                    color = OnSurface,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
+                
+                if (isDiscounted) {
+                    Column(horizontalAlignment = Alignment.End) {
+                        Text(
+                            text = "$${String.format("%.2f", totalPrice / (1 - AppConstants.DISCOUNT_PERCENTAGE))}",
+                            color = OnSurface.copy(alpha = 0.6f),
+                            fontSize = 16.sp,
+                            style = TextStyle(textDecoration = TextDecoration.LineThrough)
+                        )
+                        Text(
+                            text = "$${String.format("%.2f", totalPrice)}",
+                            color = Primary,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                } else {
+                    Text(
+                        text = "$${String.format("%.2f", totalPrice)}",
+                        color = Primary,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
-            
+
+            Spacer(modifier = Modifier.height(8.dp))
+
             Text(
-                text = "Tap to complete purchase",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Primary,
-                modifier = Modifier.padding(top = 4.dp)
+                text = "Tap to complete your purchase",
+                color = OnSurface.copy(alpha = 0.7f),
+                fontSize = 14.sp,
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

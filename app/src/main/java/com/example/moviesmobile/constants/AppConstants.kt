@@ -13,4 +13,7 @@ object AppConstants {
     const val GET_MOVIE_CART = "movies/getMovieCart.php"
     const val INSERT_MOVIE = "movies/insertMovie.php"
     const val DELETE_MOVIE = "movies/deleteMovie.php"
+    
+    const val DISCOUNT_CODE = "mert10"
+    const val DISCOUNT_PERCENTAGE = 0.10 // %10 discount
 } 

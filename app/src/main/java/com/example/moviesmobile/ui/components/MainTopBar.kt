@@ -50,7 +50,13 @@ fun MainTopBar(navController: NavController) {
                     tint = Primary
                 )
             }
-            IconButton(onClick = { navController.navigate("cartScreen") }) {
+            IconButton(
+                onClick = { 
+                    navController.navigate("cartScreen") {
+                        launchSingleTop = true
+                    }
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Default.ShoppingCart,
                     contentDescription = "Sepet",

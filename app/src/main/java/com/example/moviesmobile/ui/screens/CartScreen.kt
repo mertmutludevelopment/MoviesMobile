@@ -24,15 +24,23 @@ import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.viewmodel.CartScreenViewModel
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import com.example.moviesmobile.constants.AppConstants
+import com.example.moviesmobile.ui.components.DiscountCodeInput
+import androidx.activity.compose.BackHandler
 
 @Composable
 fun CartScreen(
     navController: NavController,
     viewModel: CartScreenViewModel
 ) {
+    BackHandler {
+        navController.popBackStack()
+    }
+
     val cartItems by viewModel.cartItems.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val showSuccess by viewModel.showSuccess.collectAsState()
+    var isDiscountApplied by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.loadCartItems()
@@ -56,32 +64,58 @@ fun CartScreen(
                 if (cartItems.isEmpty()) {
                     EmptyCart()
                 } else {
-                    LazyColumn(
+                    Box(
                         modifier = Modifier
-                            .fillMaxSize()
+                            .fillMaxWidth()
                             .weight(1f)
-                            .padding(horizontal = 16.dp)
                     ) {
-                        items(cartItems) { movie ->
-                            CartItem(
-                                movie = movie,
-                                onDeleteClick = {
-                                    viewModel.deleteMovie(movie.cartId)
-                                }
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            contentPadding = PaddingValues(bottom = 16.dp)
+                        ) {
+                            items(cartItems) { movie ->
+                                CartItem(
+                                    movie = movie,
+                                    onDeleteClick = {
+                                        viewModel.deleteMovie(movie.cartId)
+                                    }
+                                )
+                            }
+                        }
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Background)
+                    ) {
+                        Column {
+                            DiscountCodeInput(
+                                onDiscountApplied = { isDiscounted ->
+                                    isDiscountApplied = isDiscounted
+                                },
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp)
+                                    .padding(top = 16.dp)
+                            )
+                            
+                            val originalPrice = cartItems.sumOf { it.price * it.orderAmount }.toDouble()
+                            val finalPrice = if (isDiscountApplied) {
+                                originalPrice * (1 - AppConstants.DISCOUNT_PERCENTAGE)
+                            } else {
+                                originalPrice
+                            }
+                            
+                            TotalPriceCard(
+                                totalPrice = finalPrice,
+                                onClick = { viewModel.clearAllCartItems() },
+                                isDiscounted = isDiscountApplied
                             )
                         }
                     }
                 }
-            }
-
-            if (cartItems.isNotEmpty()) {
-                val totalPrice = cartItems.sumOf { it.price * it.orderAmount }
-                
-                TotalPriceCard(
-                    totalPrice = totalPrice.toDouble(),
-                    onClick = { viewModel.clearAllCartItems() },
-                    modifier = Modifier.align(Alignment.BottomCenter)
-                )
             }
         }
 
