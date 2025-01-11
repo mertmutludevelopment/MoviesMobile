@@ -2,6 +2,8 @@ package com.example.moviesmobile.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviesmobile.data.entity.SignUpRequest
+import com.example.moviesmobile.data.entity.SignUpResponse
 import com.example.moviesmobile.data.repo.IAuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

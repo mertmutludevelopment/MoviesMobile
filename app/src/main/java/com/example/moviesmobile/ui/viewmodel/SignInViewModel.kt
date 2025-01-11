@@ -3,6 +3,7 @@ package com.example.moviesmobile.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviesmobile.data.entity.SignInRequest
 import com.example.moviesmobile.data.entity.SignInResponse
 import com.example.moviesmobile.data.repo.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
