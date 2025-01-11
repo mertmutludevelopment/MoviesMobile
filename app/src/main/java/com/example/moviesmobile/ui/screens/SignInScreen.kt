@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import com.example.moviesmobile.ui.components.SignInContent
 import com.example.moviesmobile.ui.viewmodel.SignInState
 import com.example.moviesmobile.ui.viewmodel.SignInViewModel
+import com.example.moviesmobile.ui.viewmodel.SignUpViewModel
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
@@ -19,7 +20,8 @@ import androidx.compose.material3.MaterialTheme
 @Composable
 fun SignInScreen(
     navController: NavController,
-    viewModel: SignInViewModel
+    viewModel: SignInViewModel,
+    signUpViewModel: SignUpViewModel
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
     var showError by remember { mutableStateOf(false) }
@@ -64,7 +66,13 @@ fun SignInScreen(
             },
             onPasswordVisibilityChange = { passwordVisible = it },
             onSignInClick = { viewModel.onSignInClick() },
-            onSignUpClick = { navController.navigate("signUpScreen") }
+            onSignUpClick = { 
+                viewModel.resetState()
+                signUpViewModel.resetState()
+                navController.navigate("signUpScreen") {
+                    popUpTo("signInScreen") { inclusive = true }
+                }
+            }
         )
     }
 } 

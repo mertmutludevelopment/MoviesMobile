@@ -5,12 +5,14 @@ import androidx.navigation.NavController
 import com.example.moviesmobile.ui.components.SignUpContent
 import com.example.moviesmobile.ui.viewmodel.SignUpState
 import com.example.moviesmobile.ui.viewmodel.SignUpViewModel
+import com.example.moviesmobile.ui.viewmodel.SignInViewModel
 
 // Screen composable that handles user registration and state management
 @Composable
 fun SignUpScreen(
     navController: NavController,
-    viewModel: SignUpViewModel
+    viewModel: SignUpViewModel,
+    signInViewModel: SignInViewModel
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
     var showError by remember { mutableStateOf(false) }
@@ -26,8 +28,13 @@ fun SignUpScreen(
     LaunchedEffect(signUpState) {
         when (signUpState) {
             is SignUpState.Success -> {
-                navController.navigate("mainScreen") {
-                    popUpTo("signUpScreen") { inclusive = true }
+                signInViewModel.setCredentials(
+                    (signUpState as SignUpState.Success).email,
+                    (signUpState as SignUpState.Success).password
+                )
+                navController.navigate("signInScreen") {
+                    popUpTo(0) { inclusive = true }
+                    launchSingleTop = true
                 }
             }
             is SignUpState.Error -> {

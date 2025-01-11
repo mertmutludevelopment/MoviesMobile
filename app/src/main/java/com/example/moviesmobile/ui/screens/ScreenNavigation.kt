@@ -42,7 +42,8 @@ fun ScreenNavigation(
         composable("signInScreen") {
             SignInScreen(
                 navController = navController,
-                viewModel = signInViewModel
+                viewModel = signInViewModel,
+                signUpViewModel = signUpViewModel
             )
         }
 
@@ -50,7 +51,8 @@ fun ScreenNavigation(
         composable("signUpScreen") {
             SignUpScreen(
                 navController = navController,
-                viewModel = signUpViewModel
+                viewModel = signUpViewModel,
+                signInViewModel = signInViewModel
             )
         }
 

@@ -15,7 +15,7 @@ import javax.inject.Inject
 sealed class SignUpState {
     object Idle : SignUpState()
     object Loading : SignUpState()
-    object Success : SignUpState()
+    data class Success(val email: String, val password: String) : SignUpState()
     data class Error(val message: String) : SignUpState()
 }
 
@@ -57,6 +57,16 @@ class SignUpViewModel @Inject constructor(
     // Handle registration process
     fun onSignUpClick() {
         viewModelScope.launch {
+            if (fullName.value.isEmpty() || email.value.isEmpty() || password.value.isEmpty()) {
+                _signUpState.value = SignUpState.Error("All fields are required")
+                return@launch
+            }
+
+            if (!email.value.contains("@")) {
+                _signUpState.value = SignUpState.Error("Please enter a valid email")
+                return@launch
+            }
+
             _isLoading.value = true
             _signUpState.value = SignUpState.Loading
             
@@ -66,12 +76,20 @@ class SignUpViewModel @Inject constructor(
                     email = email.value,
                     password = password.value
                 )
-                _signUpState.value = SignUpState.Success
+                _signUpState.value = SignUpState.Success(email.value, password.value)
+                _fullName.value = ""
+                _email.value = ""
+                _password.value = ""
             } catch (e: Exception) {
                 _signUpState.value = SignUpState.Error(e.message ?: "An error occurred")
             } finally {
                 _isLoading.value = false
             }
         }
+    }
+
+    //  for state reset
+    fun resetState() {
+        _signUpState.value = SignUpState.Idle
     }
 } 

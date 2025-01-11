@@ -61,6 +61,8 @@ class SignInViewModel @Inject constructor(
                     accessToken = response.accessToken,
                     refreshToken = response.refreshToken
                 )
+                _email.value = ""
+                _password.value = ""
                 _signInState.value = SignInState.Success(response)
                 Log.d("SignIn", "Success: ${response.email}")
                 
@@ -82,6 +84,19 @@ class SignInViewModel @Inject constructor(
                 Log.e("SignOut", "Error during sign out: ${e.message}")
             }
         }
+    }
+
+    fun resetState() {
+        _email.value = ""
+        _password.value = ""
+        _isLoading.value = false
+        _signInState.value = SignInState.Initial
+    }
+
+    // SignUp'tan gelen bilgileri set etmek için yeni fonksiyon
+    fun setCredentials(email: String, password: String) {
+        _email.value = email
+        _password.value = password
     }
 }
 
