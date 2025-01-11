@@ -6,6 +6,8 @@ import com.example.moviesmobile.data.repo.AuthRepository
 import com.example.moviesmobile.data.repo.IAuthRepository
 import com.example.moviesmobile.retrofit.AuthDao
 import com.example.moviesmobile.data.manager.SessionManager
+import com.example.moviesmobile.constants.AppConstants
+import com.example.moviesmobile.retrofit.ApiUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,41 +24,12 @@ import javax.inject.Singleton
 object AuthModule {
     
     /**
-     * Provides OkHttpClient with logging interceptor and timeout configurations
+     * Provides AuthDao instance using RetrofitClient
      */
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val request = chain.request()
-                Log.d("API Request", "URL: ${request.url}")
-                Log.d("API Request", "Method: ${request.method}")
-                Log.d("API Request", "Headers: ${request.headers}")
-                
-                val response = chain.proceed(request)
-                Log.d("API Response", "Code: ${response.code}")
-                Log.d("API Response", "Message: ${response.message}")
-                
-                response
-            }
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .build()
-    }
-
-    /**
-     * Provides AuthDao instance using Retrofit with base URL for emulator
-     */
-    @Provides
-    @Singleton
-    fun provideAuthDao(okHttpClient: OkHttpClient): AuthDao {
-        return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5280/")
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(AuthDao::class.java)
+    fun provideAuthDao(): AuthDao {
+        return ApiUtils.getAuthDao()
     }
 
     /**

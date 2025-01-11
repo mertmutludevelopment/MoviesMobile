@@ -23,7 +23,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideMoviesDao(): MoviesDao {
-        return ApiUtils.getFilmlerDao()
+        return ApiUtils.getMoviesDao()
     }
 
     // Provides MovieDataSource instance for handling data operations

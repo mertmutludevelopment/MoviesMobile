@@ -4,6 +4,7 @@ package com.example.moviesmobile.constants
 object AppConstants {
     // Base URLs for API endpoints
     const val BASE_URL = "http://kasimadalan.pe.hu/"
+    const val BASE_AUTH_URL = "http://10.0.2.2:5280/"  // Auth API base URL
     const val IMAGE_URL = "$BASE_URL/movies/images/"
     
     // Default user information
