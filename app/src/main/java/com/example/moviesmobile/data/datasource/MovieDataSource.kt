@@ -6,9 +6,10 @@ import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.retrofit.MoviesDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 // Handles all data operations using MoviesDao
-class MovieDataSource(var moviesDao: MoviesDao) {
+class MovieDataSource @Inject constructor(var moviesDao: MoviesDao) {
 
     // Fetches all movies from the remote data source
     suspend fun getAllMovies(): List<Movie> = withContext(Dispatchers.IO) {

@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.moviesmobile.ui.screens.SignInScreen
 import com.example.moviesmobile.ui.screens.SignUpScreen
+import com.example.moviesmobile.data.manager.SessionManager
 
 // Main entry point of the application
 // Initializes ViewModels and sets up navigation
@@ -31,9 +32,13 @@ class MainActivity : ComponentActivity() {
     private val signInViewModel: SignInViewModel by viewModels()
     private val signUpViewModel: SignUpViewModel by viewModels()
 
+    private lateinit var sessionManager: SessionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sessionManager = SessionManager(this)
         enableEdgeToEdge()
+
         setContent {
             MoviesMobileTheme {
                 ScreenNavigation(
@@ -42,7 +47,8 @@ class MainActivity : ComponentActivity() {
                     cartScreenViewModel = cartScreenViewModel,
                     favoriteScreenViewModel = favoriteScreenViewModel,
                     signInViewModel = signInViewModel,
-                    signUpViewModel = signUpViewModel
+                    signUpViewModel = signUpViewModel,
+                    initialRoute = "splashScreen"
                 )
             }
         }

@@ -5,6 +5,7 @@ import com.example.moviesmobile.data.datasource.AuthDataSource
 import com.example.moviesmobile.data.repo.AuthRepository
 import com.example.moviesmobile.data.repo.IAuthRepository
 import com.example.moviesmobile.retrofit.AuthDao
+import com.example.moviesmobile.data.manager.SessionManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,8 +64,11 @@ object AuthModule {
      */
     @Provides
     @Singleton
-    fun provideAuthDataSource(authDao: AuthDao): AuthDataSource {
-        return AuthDataSource(authDao)
+    fun provideAuthDataSource(
+        authDao: AuthDao,
+        sessionManager: SessionManager
+    ): AuthDataSource {
+        return AuthDataSource(authDao, sessionManager)
     }
 
     /**

@@ -24,11 +24,15 @@ fun ScreenNavigation(
     cartScreenViewModel: CartScreenViewModel,
     favoriteScreenViewModel: FavoriteScreenViewModel,
     signInViewModel: SignInViewModel,
-    signUpViewModel: SignUpViewModel
+    signUpViewModel: SignUpViewModel,
+    initialRoute: String = "signin"
 ) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "splashScreen") {
+    NavHost(
+        navController = navController,
+        startDestination = initialRoute
+    ) {
         // Splash screen - Initial app loading screen
         composable("splashScreen") {
             SplashScreen(navController = navController)

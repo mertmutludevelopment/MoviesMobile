@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviesmobile.data.entity.SignInRequest
 import com.example.moviesmobile.data.entity.SignInResponse
 import com.example.moviesmobile.data.repo.AuthRepository
+import com.example.moviesmobile.data.manager.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 // ViewModel that handles sign-in business logic and state management
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     private val _email = MutableStateFlow("")
@@ -55,8 +57,13 @@ class SignInViewModel @Inject constructor(
                 }
 
                 val response = authRepository.signIn(_email.value, _password.value)
+                sessionManager.saveTokens(
+                    accessToken = response.accessToken,
+                    refreshToken = response.refreshToken
+                )
                 _signInState.value = SignInState.Success(response)
                 Log.d("SignIn", "Success: ${response.email}")
+                
             } catch (e: Exception) {
                 Log.e("SignIn", "Error: ${e.message}", e)
                 _signInState.value = SignInState.Error(e.message ?: "An error occurred")
@@ -64,6 +71,10 @@ class SignInViewModel @Inject constructor(
                 _isLoading.value = false
             }
         }
+    }
+
+    fun signOut() {
+        sessionManager.clearSession()
     }
 }
 

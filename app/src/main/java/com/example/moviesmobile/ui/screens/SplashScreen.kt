@@ -7,16 +7,22 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moviesmobile.ui.components.SplashAnimation
 import com.example.moviesmobile.ui.components.SplashTexts
+import com.example.moviesmobile.data.manager.SessionManager
 import kotlinx.coroutines.delay
 
 // Initial loading screen with animated logo and text
 // Automatically navigates to main screen after animation completes
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(
+    navController: NavController
+) {
+    val context = LocalContext.current
+    val sessionManager = SessionManager(context)
     var startAnimation by remember { mutableStateOf(false) }
 
     // Fade-in animation for text elements
@@ -30,9 +36,15 @@ fun SplashScreen(navController: NavController) {
     // Start animation and navigate to main screen after delay
     LaunchedEffect(key1 = true) {
         startAnimation = true
-        delay(2000)
-        navController.navigate("signInScreen") {
-            popUpTo("splashScreen") { inclusive = true }
+        delay(2000L)
+        if (sessionManager.isLoggedIn()) {
+            navController.navigate("mainScreen") {
+                popUpTo("splashScreen") { inclusive = true }
+            }
+        } else {
+            navController.navigate("signInScreen") {
+                popUpTo("splashScreen") { inclusive = true }
+            }
         }
     }
 
