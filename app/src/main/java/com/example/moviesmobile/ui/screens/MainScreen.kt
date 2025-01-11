@@ -13,13 +13,15 @@ import com.example.moviesmobile.ui.components.*
 import com.example.moviesmobile.ui.theme.Background
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
+import com.example.moviesmobile.ui.viewmodel.SignInViewModel
 
 // Main screen that handles movie listing, searching and filtering
 @Composable
 fun MainScreen(
     navController: NavController,
     mainScreenViewModel: MainScreenViewModel,
-    favoriteViewModel: FavoriteScreenViewModel
+    favoriteViewModel: FavoriteScreenViewModel,
+    signInViewModel: SignInViewModel
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("All") }
@@ -59,7 +61,10 @@ fun MainScreen(
             .fillMaxSize()
             .background(Background)
     ) {
-        MainTopBar(navController = navController)
+        MainTopBar(
+            navController = navController,
+            signInViewModel = signInViewModel
+        )
 
         MainSearchBar(
             searchQuery = searchQuery,

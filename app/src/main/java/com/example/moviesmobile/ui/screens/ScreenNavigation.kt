@@ -59,7 +59,8 @@ fun ScreenNavigation(
             MainScreen(
                 navController = navController,
                 mainScreenViewModel = mainScreenViewModel,
-                favoriteViewModel = favoriteScreenViewModel
+                favoriteViewModel = favoriteScreenViewModel,
+                signInViewModel = signInViewModel
             )
         }
 

@@ -3,6 +3,7 @@ package com.example.moviesmobile.ui.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
@@ -16,12 +17,33 @@ import androidx.navigation.NavController
 import com.example.moviesmobile.ui.theme.OnSurface
 import com.example.moviesmobile.ui.theme.Primary
 import com.example.moviesmobile.ui.theme.Surface
+import com.example.moviesmobile.ui.viewmodel.SignInViewModel
 
 // Main app bar with app logo, title and navigation icons
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainTopBar(navController: NavController) {
+fun MainTopBar(
+    navController: NavController,
+    signInViewModel: SignInViewModel
+) {
     CenterAlignedTopAppBar(
+        navigationIcon = {
+            IconButton(
+                onClick = { 
+                    signInViewModel.signOut()
+                    navController.navigate("splashScreen") {
+                        popUpTo(0) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Logout,
+                    contentDescription = "LogOut",
+                    tint = Primary
+                )
+            }
+        },
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

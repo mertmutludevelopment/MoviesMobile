@@ -74,7 +74,14 @@ class SignInViewModel @Inject constructor(
     }
 
     fun signOut() {
-        sessionManager.clearSession()
+        viewModelScope.launch {
+            try {
+                sessionManager.clearSession()
+                _signInState.value = SignInState.Initial
+            } catch (e: Exception) {
+                Log.e("SignOut", "Error during sign out: ${e.message}")
+            }
+        }
     }
 }
 
