@@ -96,6 +96,8 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
+    // OkHttp Logging
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
 }
 

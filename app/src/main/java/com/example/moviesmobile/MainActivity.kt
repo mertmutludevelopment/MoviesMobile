@@ -11,6 +11,7 @@ import com.example.moviesmobile.ui.viewmodel.CartScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
+import com.example.moviesmobile.ui.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 // Main entry point of the application
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
     private val detailScreenViewModel: DetailScreenViewModel by viewModels()
     private val cartScreenViewModel: CartScreenViewModel by viewModels()
     private val favoriteScreenViewModel: FavoriteScreenViewModel by viewModels()
+    private val signInViewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,8 @@ class MainActivity : ComponentActivity() {
                     mainScreenViewModel = mainScreenViewModel,
                     detailScreenViewModel = detailScreenViewModel,
                     cartScreenViewModel = cartScreenViewModel,
-                    favoriteScreenViewModel = favoriteScreenViewModel
+                    favoriteScreenViewModel = favoriteScreenViewModel,
+                    signInViewModel = signInViewModel
                 )
             }
         }

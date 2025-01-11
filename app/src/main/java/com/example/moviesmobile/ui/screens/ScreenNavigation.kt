@@ -12,6 +12,7 @@ import com.example.moviesmobile.ui.viewmodel.CartScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
+import com.example.moviesmobile.ui.viewmodel.SignInViewModel
 
 // Main navigation component handling screen transitions and routing
 // Manages navigation between Splash, Main, Detail, Cart and Favorite screens
@@ -20,7 +21,8 @@ fun ScreenNavigation(
     mainScreenViewModel: MainScreenViewModel,
     detailScreenViewModel: DetailScreenViewModel,
     cartScreenViewModel: CartScreenViewModel,
-    favoriteScreenViewModel: FavoriteScreenViewModel
+    favoriteScreenViewModel: FavoriteScreenViewModel,
+    signInViewModel: SignInViewModel
 ) {
     val navController = rememberNavController()
 
@@ -28,6 +30,14 @@ fun ScreenNavigation(
         // Splash screen - Initial app loading screen
         composable("splashScreen") {
             SplashScreen(navController = navController)
+        }
+
+        // Sign In screen - Yeni eklenen
+        composable("signInScreen") {
+            SignInScreen(
+                navController = navController,
+                viewModel = signInViewModel
+            )
         }
 
         // Main screen - Home screen with movie listings
