@@ -39,7 +39,6 @@ CineSpot, modern bir film platformu olarak kullanıcılara zengin bir sinema den
 - **Material Design 3**: Modern tasarım öğeleri
 
 ### Tasarım Özellikleri
-- Netflix benzeri koyu tema
 - Modern ve şık arayüz
 - Akıcı animasyonlar
 - Kullanıcı dostu navigasyon
