@@ -14,6 +14,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.ui.theme.*
 
+//Reusable email input component with validation and styling
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmailInput(

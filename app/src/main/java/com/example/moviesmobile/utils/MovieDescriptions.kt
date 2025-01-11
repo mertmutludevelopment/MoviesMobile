@@ -1,4 +1,4 @@
-package com.example.moviesmobile.util
+package com.example.moviesmobile.utils
 
 // Utility object for providing movie descriptions
 object MovieDescriptions {

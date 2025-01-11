@@ -5,7 +5,17 @@ import androidx.navigation.NavController
 import com.example.moviesmobile.ui.components.SignInContent
 import com.example.moviesmobile.ui.viewmodel.SignInState
 import com.example.moviesmobile.ui.viewmodel.SignInViewModel
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 
+// Screen composable that handles sign-in logic and state management
 @Composable
 fun SignInScreen(
     navController: NavController,
@@ -36,22 +46,25 @@ fun SignInScreen(
         }
     }
 
-    SignInContent(
-        email = email,
-        password = password,
-        isLoading = isLoading,
-        showError = showError,
-        errorMessage = errorMessage,
-        passwordVisible = passwordVisible,
-        onEmailChange = { 
-            viewModel.onEmailChange(it)
-            showError = false 
-        },
-        onPasswordChange = { 
-            viewModel.onPasswordChange(it)
-            showError = false 
-        },
-        onPasswordVisibilityChange = { passwordVisible = it },
-        onSignInClick = { viewModel.onSignInClick() }
-    )
+    Column {
+        SignInContent(
+            email = email,
+            password = password,
+            isLoading = isLoading,
+            showError = showError,
+            errorMessage = errorMessage,
+            passwordVisible = passwordVisible,
+            onEmailChange = { 
+                viewModel.onEmailChange(it)
+                showError = false 
+            },
+            onPasswordChange = { 
+                viewModel.onPasswordChange(it)
+                showError = false 
+            },
+            onPasswordVisibilityChange = { passwordVisible = it },
+            onSignInClick = { viewModel.onSignInClick() },
+            onSignUpClick = { navController.navigate("signUpScreen") }
+        )
+    }
 } 

@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviesmobile.constants.AppConstants
 import com.example.moviesmobile.data.entity.Movie
 import com.example.moviesmobile.data.repo.MovieRepository
-import com.example.moviesmobile.util.MovieDescriptions
+import com.example.moviesmobile.utils.MovieDescriptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

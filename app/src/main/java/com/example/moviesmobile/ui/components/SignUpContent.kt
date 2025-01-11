@@ -12,20 +12,22 @@ import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.ui.theme.Background
 import com.example.moviesmobile.ui.theme.OnPrimary
 
-// Main content composable for the sign-in screen with form inputs and navigation
+// Main content composable for the sign-up screen with registration form
 @Composable
-fun SignInContent(
+fun SignUpContent(
+    fullName: String,
     email: String,
     password: String,
     isLoading: Boolean,
     showError: Boolean,
     errorMessage: String,
     passwordVisible: Boolean,
+    onFullNameChange: (String) -> Unit,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onPasswordVisibilityChange: (Boolean) -> Unit,
-    onSignInClick: () -> Unit,
-    onSignUpClick: () -> Unit
+    onSignUpClick: () -> Unit,
+    onSignInClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -39,13 +41,21 @@ fun SignInContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            SignInHeader()
+            SignUpHeader()
             
             if (showError) {
                 ErrorMessage(message = errorMessage)
             }
 
-            // Input fields for email and password
+            // Registration form inputs
+            FullNameInput(
+                fullName = fullName,
+                showError = showError,
+                onFullNameChange = onFullNameChange
+            )
+            
+            Spacer(modifier = Modifier.height(8.dp))
+            
             EmailInput(
                 email = email,
                 showError = showError,
@@ -59,11 +69,12 @@ fun SignInContent(
                 onPasswordChange = onPasswordChange,
                 onPasswordVisibilityChange = onPasswordVisibilityChange
             )
+            
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Sign in button with loading state
+            
+            // Sign up button with loading state
             Button(
-                onClick = onSignInClick,
+                onClick = onSignUpClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
@@ -76,16 +87,16 @@ fun SignInContent(
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 } else {
-                    Text("Sign In")
+                    Text("Sign Up")
                 }
             }
             
             Spacer(modifier = Modifier.height(16.dp))
             
-            // Navigation link to sign up screen
+            // Navigation link to sign in screen
             Text(
-                text = "Don't have an account? Sign Up",
-                modifier = Modifier.clickable(onClick = onSignUpClick),
+                text = "Already have an account? Sign In",
+                modifier = Modifier.clickable(onClick = onSignInClick),
                 color = OnPrimary
             )
         }

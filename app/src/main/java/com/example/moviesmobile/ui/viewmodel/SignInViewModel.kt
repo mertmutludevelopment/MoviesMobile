@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+// ViewModel that handles sign-in business logic and state management
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val authRepository: AuthRepository
@@ -28,6 +29,7 @@ class SignInViewModel @Inject constructor(
     private val _signInState = MutableStateFlow<SignInState>(SignInState.Initial)
     val signInState: StateFlow<SignInState> = _signInState
 
+    // Form field update handlers
     fun onEmailChange(newEmail: String) {
         _email.value = newEmail
     }
@@ -36,6 +38,7 @@ class SignInViewModel @Inject constructor(
         _password.value = newPassword
     }
 
+    // Handle sign-in process with validation
     fun onSignInClick() {
         viewModelScope.launch {
             try {
@@ -63,6 +66,7 @@ class SignInViewModel @Inject constructor(
     }
 }
 
+// Sealed class representing different states of sign-in process
 sealed class SignInState {
     object Initial : SignInState()
     data class Success(val response: SignInResponse) : SignInState()

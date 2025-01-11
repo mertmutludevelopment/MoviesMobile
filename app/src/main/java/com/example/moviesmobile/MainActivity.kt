@@ -12,7 +12,12 @@ import com.example.moviesmobile.ui.viewmodel.DetailScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.FavoriteScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.MainScreenViewModel
 import com.example.moviesmobile.ui.viewmodel.SignInViewModel
+import com.example.moviesmobile.ui.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.example.moviesmobile.ui.screens.SignInScreen
+import com.example.moviesmobile.ui.screens.SignUpScreen
 
 // Main entry point of the application
 // Initializes ViewModels and sets up navigation
@@ -24,19 +29,20 @@ class MainActivity : ComponentActivity() {
     private val cartScreenViewModel: CartScreenViewModel by viewModels()
     private val favoriteScreenViewModel: FavoriteScreenViewModel by viewModels()
     private val signInViewModel: SignInViewModel by viewModels()
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MoviesMobileTheme {
-                // Set up navigation with required ViewModels
                 ScreenNavigation(
                     mainScreenViewModel = mainScreenViewModel,
                     detailScreenViewModel = detailScreenViewModel,
                     cartScreenViewModel = cartScreenViewModel,
                     favoriteScreenViewModel = favoriteScreenViewModel,
-                    signInViewModel = signInViewModel
+                    signInViewModel = signInViewModel,
+                    signUpViewModel = signUpViewModel
                 )
             }
         }

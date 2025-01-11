@@ -3,6 +3,7 @@ package com.example.moviesmobile.di
 import android.util.Log
 import com.example.moviesmobile.data.datasource.AuthDataSource
 import com.example.moviesmobile.data.repo.AuthRepository
+import com.example.moviesmobile.data.repo.IAuthRepository
 import com.example.moviesmobile.retrofit.AuthDao
 import dagger.Module
 import dagger.Provides
@@ -18,7 +19,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AuthModule {
-
+    
+    /**
+     * Provides OkHttpClient with logging interceptor and timeout configurations
+     */
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -40,26 +44,35 @@ object AuthModule {
             .build()
     }
 
+    /**
+     * Provides AuthDao instance using Retrofit with base URL for emulator
+     */
     @Provides
     @Singleton
     fun provideAuthDao(okHttpClient: OkHttpClient): AuthDao {
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5280/") // Emülatör için
+            .baseUrl("http://10.0.2.2:5280/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AuthDao::class.java)
     }
 
+    /**
+     * Provides AuthDataSource instance
+     */
     @Provides
     @Singleton
     fun provideAuthDataSource(authDao: AuthDao): AuthDataSource {
         return AuthDataSource(authDao)
     }
 
+    /**
+     * Provides IAuthRepository implementation
+     */
     @Provides
     @Singleton
-    fun provideAuthRepository(authDataSource: AuthDataSource): AuthRepository {
+    fun provideAuthRepository(authDataSource: AuthDataSource): IAuthRepository {
         return AuthRepository(authDataSource)
     }
 }

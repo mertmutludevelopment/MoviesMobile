@@ -15,6 +15,7 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import com.example.moviesmobile.ui.theme.*
 
+// Reusable password input component with visibility toggle and validation
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordInput(
